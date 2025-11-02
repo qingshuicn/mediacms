@@ -7,6 +7,7 @@ import { MediaListWrapper } from '../components/MediaListWrapper';
 import ProfilePagesHeader from '../components/profile-page/ProfilePagesHeader';
 import ProfilePagesContent from '../components/profile-page/ProfilePagesContent';
 import { LazyLoadItemListAsync } from '../components/item-list/LazyLoadItemListAsync';
+import { translateString } from '../utils/helpers';
 
 import { Page } from './_Page';
 
@@ -17,12 +18,12 @@ function EmptyChannelMedia(props) {
     <LinksConsumer>
       {(links) => (
         <div className="empty-media empty-channel-media">
-          <div className="welcome-title">Welcome {props.name}</div>
+          <div className="welcome-title">{translateString('Welcome')} {props.name}</div>
           <div className="start-uploading">
-            Start uploading media and sharing your work. Media that you upload will show up here.
+            {translateString('Start uploading media and sharing your work. Media that you upload will show up here.')}
           </div>
-          <a href={links.user.addMedia} title="Upload media" className="button-link">
-            <i className="material-icons" data-icon="video_call"></i>UPLOAD MEDIA
+          <a href={links.user.addMedia} title={translateString('Upload media')} className="button-link">
+            <i className="material-icons" data-icon="video_call"></i>{translateString('UPLOAD MEDIA')}
           </a>
         </div>
       )}
