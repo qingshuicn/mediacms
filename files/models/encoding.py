@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from .. import helpers
 from .utils import (
@@ -23,65 +24,67 @@ class EncodeProfile(models.Model):
     keeps information for each profile
     """
 
-    name = models.CharField(max_length=90)
+    name = models.CharField(max_length=90, verbose_name=_("Name"))
 
-    extension = models.CharField(max_length=10, choices=ENCODE_EXTENSIONS)
+    extension = models.CharField(max_length=10, choices=ENCODE_EXTENSIONS, verbose_name=_("Extension"))
 
-    resolution = models.IntegerField(choices=ENCODE_RESOLUTIONS, blank=True, null=True)
+    resolution = models.IntegerField(choices=ENCODE_RESOLUTIONS, blank=True, null=True, verbose_name=_("Resolution"))
 
-    codec = models.CharField(max_length=10, choices=CODECS, blank=True, null=True)
+    codec = models.CharField(max_length=10, choices=CODECS, blank=True, null=True, verbose_name=_("Codec"))
 
-    description = models.TextField(blank=True, help_text="description")
+    description = models.TextField(blank=True, help_text=_("Description"), verbose_name=_("Description"))
 
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     def __str__(self):
         return self.name
 
     class Meta:
         ordering = ["resolution"]
+        verbose_name = _("Encode profile")
+        verbose_name_plural = _("Encode profiles")
 
 
 class Encoding(models.Model):
     """Encoding Media Instances"""
 
-    add_date = models.DateTimeField(auto_now_add=True)
+    add_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Added on"))
 
-    commands = models.TextField(blank=True, help_text="commands run")
+    commands = models.TextField(blank=True, help_text=_("Commands run"), verbose_name=_("Commands"))
 
-    chunk = models.BooleanField(default=False, db_index=True, help_text="is chunk?")
+    chunk = models.BooleanField(default=False, db_index=True, help_text=_("Is chunk?"), verbose_name=_("Chunk"))
 
-    chunk_file_path = models.CharField(max_length=400, blank=True)
+    chunk_file_path = models.CharField(max_length=400, blank=True, verbose_name=_("Chunk file path"))
 
-    chunks_info = models.TextField(blank=True)
+    chunks_info = models.TextField(blank=True, verbose_name=_("Chunks info"))
 
-    logs = models.TextField(blank=True)
+    logs = models.TextField(blank=True, verbose_name=_("Logs"))
 
-    md5sum = models.CharField(max_length=50, blank=True, null=True)
+    md5sum = models.CharField(max_length=50, blank=True, null=True, verbose_name=_("MD5 sum"))
 
-    media = models.ForeignKey("Media", on_delete=models.CASCADE, related_name="encodings")
+    media = models.ForeignKey("Media", on_delete=models.CASCADE, related_name="encodings", verbose_name=_("Media"))
 
-    media_file = models.FileField("encoding file", upload_to=encoding_media_file_path, blank=True, max_length=500)
+    media_file = models.FileField(_("Encoding file"), upload_to=encoding_media_file_path, blank=True, max_length=500, help_text=_("Encoding file"))
 
-    profile = models.ForeignKey(EncodeProfile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(EncodeProfile, on_delete=models.CASCADE, verbose_name=_("Profile"))
 
-    progress = models.PositiveSmallIntegerField(default=0)
+    progress = models.PositiveSmallIntegerField(default=0, verbose_name=_("Progress"))
 
-    update_date = models.DateTimeField(auto_now=True)
+    update_date = models.DateTimeField(auto_now=True, verbose_name=_("Updated on"))
 
-    retries = models.IntegerField(default=0)
+    retries = models.IntegerField(default=0, verbose_name=_("Retries"))
 
-    size = models.CharField(max_length=20, blank=True)
+    size = models.CharField(max_length=20, blank=True, verbose_name=_("Size"))
 
-    status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending")
+    status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending", verbose_name=_("Status"))
 
-    temp_file = models.CharField(max_length=400, blank=True)
+    temp_file = models.CharField(max_length=400, blank=True, verbose_name=_("Temp file"))
 
-    task_id = models.CharField(max_length=100, blank=True)
+    task_id = models.CharField(max_length=100, blank=True, verbose_name=_("Task ID"))
 
-    total_run_time = models.IntegerField(default=0)
+    total_run_time = models.IntegerField(default=0, verbose_name=_("Total run time (s)"))
 
-    worker = models.CharField(max_length=100, blank=True)
+    worker = models.CharField(max_length=100, blank=True, verbose_name=_("Worker"))
 
     @property
     def media_encoding_url(self):
@@ -138,6 +141,10 @@ class Encoding(models.Model):
 
     def get_absolute_url(self):
         return reverse("api_get_encoding", kwargs={"encoding_id": self.id})
+
+    class Meta:
+        verbose_name = _("Encoding")
+        verbose_name_plural = _("Encodings")
 
 
 @receiver(post_save, sender=Encoding)

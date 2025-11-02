@@ -1,34 +1,35 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
 
 from .. import helpers
 
 # this is used by Media and Encoding models
 # reflects media encoding status for objects
 MEDIA_ENCODING_STATUS = (
-    ("pending", "Pending"),
-    ("running", "Running"),
-    ("fail", "Fail"),
-    ("success", "Success"),
+    ("pending", _("Pending")),
+    ("running", _("Running")),
+    ("fail", _("Fail")),
+    ("success", _("Success")),
 )
 
 # the media state of a Media object
 # this is set by default according to the portal workflow
 MEDIA_STATES = (
-    ("private", "Private"),
-    ("public", "Public"),
-    ("unlisted", "Unlisted"),
+    ("private", _("Private")),
+    ("public", _("Public")),
+    ("unlisted", _("Unlisted")),
 )
 
 # each uploaded Media gets a media_type hint
 # by helpers.get_file_type
 
 MEDIA_TYPES_SUPPORTED = (
-    ("video", "Video"),
-    ("image", "Image"),
-    ("pdf", "Pdf"),
-    ("audio", "Audio"),
+    ("video", _("Video")),
+    ("image", _("Image")),
+    ("pdf", _("Pdf")),
+    ("audio", _("Audio")),
 )
 
 ENCODE_EXTENSIONS = (

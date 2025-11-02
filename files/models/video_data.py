@@ -1,16 +1,24 @@
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 from .. import helpers
 
 
 class VideoChapterData(models.Model):
-    data = models.JSONField(null=False, blank=False, help_text="Chapter data")
-    media = models.ForeignKey('Media', on_delete=models.CASCADE, related_name='chapters')
+    data = models.JSONField(null=False, blank=False, help_text=_("Chapter data"), verbose_name=_("Chapter data"))
+    media = models.ForeignKey(
+        'Media',
+        on_delete=models.CASCADE,
+        related_name='chapters',
+        verbose_name=_("Media"),
+    )
 
     class Meta:
         unique_together = ['media']
+        verbose_name = _("Video chapter data")
+        verbose_name_plural = _("Video chapter data")
 
     @property
     def chapter_data(self):
@@ -32,32 +40,60 @@ class VideoTrimRequest(models.Model):
     """Model to handle video trimming requests"""
 
     VIDEO_TRIM_STATUS = (
-        ("initial", "Initial"),
-        ("running", "Running"),
-        ("success", "Success"),
-        ("fail", "Fail"),
+        ("initial", _("Initial")),
+        ("running", _("Running")),
+        ("success", _("Success")),
+        ("fail", _("Fail")),
     )
 
     VIDEO_ACTION_CHOICES = (
-        ("replace", "Replace Original"),
-        ("save_new", "Save as New"),
-        ("create_segments", "Create Segments"),
+        ("replace", _("Replace Original")),
+        ("save_new", _("Save as New")),
+        ("create_segments", _("Create Segments")),
     )
 
     TRIM_STYLE_CHOICES = (
-        ("no_encoding", "No Encoding"),
-        ("precise", "Precise"),
+        ("no_encoding", _("No Encoding")),
+        ("precise", _("Precise")),
     )
 
-    media = models.ForeignKey('Media', on_delete=models.CASCADE, related_name='trim_requests')
-    status = models.CharField(max_length=20, choices=VIDEO_TRIM_STATUS, default="initial")
-    add_date = models.DateTimeField(auto_now_add=True)
-    video_action = models.CharField(max_length=20, choices=VIDEO_ACTION_CHOICES)
-    media_trim_style = models.CharField(max_length=20, choices=TRIM_STYLE_CHOICES, default="no_encoding")
-    timestamps = models.JSONField(null=False, blank=False, help_text="Timestamps for trimming")
+    media = models.ForeignKey(
+        'Media',
+        on_delete=models.CASCADE,
+        related_name='trim_requests',
+        verbose_name=_("Media"),
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=VIDEO_TRIM_STATUS,
+        default="initial",
+        verbose_name=_("Status"),
+    )
+    add_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Added on"))
+    video_action = models.CharField(
+        max_length=20,
+        choices=VIDEO_ACTION_CHOICES,
+        verbose_name=_("Video action"),
+    )
+    media_trim_style = models.CharField(
+        max_length=20,
+        choices=TRIM_STYLE_CHOICES,
+        default="no_encoding",
+        verbose_name=_("Trim style"),
+    )
+    timestamps = models.JSONField(
+        null=False,
+        blank=False,
+        help_text=_("Timestamps for trimming"),
+        verbose_name=_("Timestamps"),
+    )
 
     def __str__(self):
         return f"Trim request for {self.media.title} ({self.status})"
+
+    class Meta:
+        verbose_name = _("Video trim request")
+        verbose_name_plural = _("Video trim requests")
 
 
 @receiver(post_delete, sender=VideoChapterData)

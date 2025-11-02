@@ -17,6 +17,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
+from django.utils.translation import gettext_lazy as _
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
@@ -40,63 +41,109 @@ logger = logging.getLogger(__name__)
 class Media(models.Model):
     """The most important model for MediaCMS"""
 
-    add_date = models.DateTimeField("Date produced", blank=True, null=True, db_index=True)
+    add_date = models.DateTimeField(_("Date produced"), blank=True, null=True, db_index=True)
 
-    allow_download = models.BooleanField(default=True, help_text="Whether option to download media is shown")
+    allow_download = models.BooleanField(
+        default=True,
+        help_text=_("Whether option to download media is shown"),
+        verbose_name=_("Allow download"),
+    )
 
-    category = models.ManyToManyField("Category", blank=True, help_text="Media can be part of one or more categories")
+    category = models.ManyToManyField(
+        "Category",
+        blank=True,
+        help_text=_("Media can be part of one or more categories"),
+        verbose_name=_("Categories"),
+    )
 
     channel = models.ForeignKey(
         "users.Channel",
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        help_text="Media can exist in one or no Channels",
+        help_text=_("Media can exist in one or no channels"),
+        verbose_name=_("Channel"),
     )
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name=_("Description"))
 
-    dislikes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0, verbose_name=_("Dislikes"))
 
-    duration = models.IntegerField(default=0)
+    duration = models.IntegerField(default=0, verbose_name=_("Duration"))
 
-    edit_date = models.DateTimeField(auto_now=True)
+    edit_date = models.DateTimeField(auto_now=True, verbose_name=_("Edit date"))
 
-    enable_comments = models.BooleanField(default=True, help_text="Whether comments will be allowed for this media")
+    enable_comments = models.BooleanField(
+        default=True,
+        help_text=_("Whether comments will be allowed for this media"),
+        verbose_name=_("Enable comments"),
+    )
 
-    encoding_status = models.CharField(max_length=20, choices=MEDIA_ENCODING_STATUS, default="pending", db_index=True)
+    encoding_status = models.CharField(
+        max_length=20,
+        choices=MEDIA_ENCODING_STATUS,
+        default="pending",
+        db_index=True,
+        verbose_name=_("Encoding status"),
+    )
 
     featured = models.BooleanField(
         default=False,
         db_index=True,
-        help_text="Whether media is globally featured by a MediaCMS editor",
+        help_text=_("Whether media is globally featured by a MediaCMS editor"),
+        verbose_name=_("Featured"),
     )
 
-    friendly_token = models.CharField(blank=True, max_length=150, db_index=True, unique=True, help_text="Identifier for the Media")
+    friendly_token = models.CharField(
+        blank=True,
+        max_length=150,
+        db_index=True,
+        unique=True,
+        help_text=_("Identifier for the media"),
+        verbose_name=_("Friendly token"),
+    )
 
-    hls_file = models.CharField(max_length=1000, blank=True, help_text="Path to HLS file for videos")
+    hls_file = models.CharField(max_length=1000, blank=True, help_text=_("Path to HLS file for videos"), verbose_name=_("HLS file"))
 
     is_reviewed = models.BooleanField(
         default=settings.MEDIA_IS_REVIEWED,
         db_index=True,
-        help_text="Whether media is reviewed, so it can appear on public listings",
+        help_text=_("Whether media is reviewed, so it can appear on public listings"),
+        verbose_name=_("Reviewed"),
     )
 
-    license = models.ForeignKey("License", on_delete=models.CASCADE, db_index=True, blank=True, null=True)
+    license = models.ForeignKey(
+        "License",
+        on_delete=models.CASCADE,
+        db_index=True,
+        blank=True,
+        null=True,
+        verbose_name=_("License"),
+    )
 
-    likes = models.IntegerField(db_index=True, default=1)
+    likes = models.IntegerField(db_index=True, default=1, verbose_name=_("Likes"))
 
-    listable = models.BooleanField(default=False, help_text="Whether it will appear on listings")
+    listable = models.BooleanField(
+        default=False,
+        help_text=_("Whether it will appear on listings"),
+        verbose_name=_("Listable"),
+    )
 
-    md5sum = models.CharField(max_length=50, blank=True, null=True, help_text="Not exposed, used internally")
+    md5sum = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text=_("Not exposed, used internally"),
+        verbose_name=_("MD5 sum"),
+    )
 
     media_file = models.FileField(
-        "media file",
+        _("Media file"),
         upload_to=original_media_file_path,
         max_length=500,
-        help_text="media file",
+        help_text=_("Media file"),
     )
 
-    media_info = models.TextField(blank=True, help_text="extracted media metadata info")
+    media_info = models.TextField(blank=True, help_text=_("Extracted media metadata info"), verbose_name=_("Media info"))
 
     media_type = models.CharField(
         max_length=20,
@@ -104,14 +151,21 @@ class Media(models.Model):
         choices=MEDIA_TYPES_SUPPORTED,
         db_index=True,
         default="video",
+        verbose_name=_("Media type"),
     )
 
-    password = models.CharField(max_length=100, blank=True, help_text="password for private media")
+    password = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text=_("Password for private media"),
+        verbose_name=_("Password"),
+    )
 
     preview_file_path = models.CharField(
         max_length=500,
         blank=True,
-        help_text="preview gif for videos, path in filesystem",
+        help_text=_("Preview gif for videos, path in filesystem"),
+        verbose_name=_("Preview file path"),
     )
 
     poster = ProcessedImageField(
@@ -121,34 +175,39 @@ class Media(models.Model):
         options={"quality": 95},
         blank=True,
         max_length=500,
-        help_text="media extracted big thumbnail, shown on media page",
+        help_text=_("Media extracted big thumbnail, shown on media page"),
+        verbose_name=_("Poster"),
     )
 
     rating_category = models.ManyToManyField(
         "RatingCategory",
         blank=True,
-        help_text="Rating category, if media Rating is allowed",
+        help_text=_("Rating category, if media rating is allowed"),
+        verbose_name=_("Rating categories"),
     )
 
-    reported_times = models.IntegerField(default=0, help_text="how many time a media is reported")
+    reported_times = models.IntegerField(default=0, help_text=_("How many times a media is reported"), verbose_name=_("Reported times"))
 
     search = SearchVectorField(
         null=True,
-        help_text="used to store all searchable info and metadata for a Media",
+        help_text=_("Used to store all searchable info and metadata for a media"),
+        verbose_name=_("Search data"),
     )
 
     size = models.CharField(
         max_length=20,
         blank=True,
         null=True,
-        help_text="media size in bytes, automatically calculated",
+        help_text=_("Media size in bytes, automatically calculated"),
+        verbose_name=_("Size"),
     )
 
     sprites = models.FileField(
         upload_to=original_thumbnail_file_path,
         blank=True,
         max_length=500,
-        help_text="sprites file, only for videos, displayed on the video player",
+        help_text=_("Sprites file, only for videos, displayed on the video player"),
+        verbose_name=_("Sprites"),
     )
 
     state = models.CharField(
@@ -156,12 +215,13 @@ class Media(models.Model):
         choices=MEDIA_STATES,
         default=helpers.get_portal_workflow(),
         db_index=True,
-        help_text="state of Media",
+        help_text=_("State of media"),
+        verbose_name=_("State"),
     )
 
-    tags = models.ManyToManyField("Tag", blank=True, help_text="select one or more out of the existing tags")
+    tags = models.ManyToManyField("Tag", blank=True, help_text=_("Select one or more out of the existing tags"), verbose_name=_("Tags"))
 
-    title = models.CharField(max_length=100, help_text="media title", blank=True, db_index=True)
+    title = models.CharField(max_length=100, help_text=_("Media title"), blank=True, db_index=True, verbose_name=_("Title"))
 
     thumbnail = ProcessedImageField(
         upload_to=original_thumbnail_file_path,
@@ -170,12 +230,13 @@ class Media(models.Model):
         options={"quality": 95},
         blank=True,
         max_length=500,
-        help_text="media extracted small thumbnail, shown on listings",
+        help_text=_("Media extracted small thumbnail, shown on listings"),
+        verbose_name=_("Thumbnail"),
     )
 
-    thumbnail_time = models.FloatField(blank=True, null=True, help_text="Time on video that a thumbnail will be taken")
+    thumbnail_time = models.FloatField(blank=True, null=True, help_text=_("Time on video that a thumbnail will be taken"), verbose_name=_("Thumbnail time"))
 
-    uid = models.UUIDField(unique=True, default=uuid.uuid4, help_text="A unique identifier for the Media")
+    uid = models.UUIDField(unique=True, default=uuid.uuid4, help_text=_("A unique identifier for the media"), verbose_name=_("UID"))
 
     uploaded_thumbnail = ProcessedImageField(
         upload_to=original_thumbnail_file_path,
@@ -184,12 +245,13 @@ class Media(models.Model):
         options={"quality": 85},
         blank=True,
         max_length=500,
-        help_text="thumbnail from uploaded_poster field",
+        help_text=_("Thumbnail from uploaded poster field"),
+        verbose_name=_("Uploaded thumbnail"),
     )
 
     uploaded_poster = ProcessedImageField(
-        verbose_name="Upload image",
-        help_text="This image will characterize the media",
+        verbose_name=_("Upload image"),
+        help_text=_("This image will characterize the media"),
         upload_to=original_thumbnail_file_path,
         processors=[ResizeToFit(width=720, height=None)],
         format="JPEG",
@@ -198,16 +260,25 @@ class Media(models.Model):
         max_length=500,
     )
 
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, help_text="user that uploads the media")
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        help_text=_("User that uploads the media"),
+        verbose_name=_("User"),
+    )
 
-    user_featured = models.BooleanField(default=False, help_text="Featured by the user")
+    user_featured = models.BooleanField(
+        default=False,
+        help_text=_("Featured by the user"),
+        verbose_name=_("User featured"),
+    )
 
-    video_height = models.IntegerField(default=1)
+    video_height = models.IntegerField(default=1, verbose_name=_("Video height"))
 
-    views = models.IntegerField(db_index=True, default=1)
+    views = models.IntegerField(db_index=True, default=1, verbose_name=_("Views"))
 
-    allow_whisper_transcribe = models.BooleanField("Transcribe auto-detected language", default=False)
-    allow_whisper_transcribe_and_translate = models.BooleanField("Transcribe auto-detected language and translate to English", default=False)
+    allow_whisper_transcribe = models.BooleanField(_("Transcribe auto-detected language"), default=False)
+    allow_whisper_transcribe_and_translate = models.BooleanField(_("Transcribe auto-detected language and translate to English"), default=False)
 
     # keep track if media file has changed, on saves
     __original_media_file = None
@@ -216,6 +287,8 @@ class Media(models.Model):
 
     class Meta:
         ordering = ["-add_date"]
+        verbose_name = _("Media")
+        verbose_name_plural = _("Media")
         indexes = [
             # TODO: check with pgdash.io or other tool what index need be
             # removed

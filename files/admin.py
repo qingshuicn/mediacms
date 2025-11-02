@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.utils.translation import gettext_lazy as _
 from tinymce.widgets import TinyMCE
 
 from rbac.models import RBACGroup
@@ -51,17 +52,22 @@ class MediaAdmin(admin.ModelAdmin):
     def get_comments_count(self, obj):
         return obj.comments.count()
 
-    @admin.action(description="Generate missing encoding(s)", permissions=["change"])
+    @admin.action(description=_("Generate missing encoding(s)"), permissions=["change"])
     def generate_missing_encodings(modeladmin, request, queryset):
         for m in queryset:
             m.encode(force=False)
 
     actions = [generate_missing_encodings]
-    get_comments_count.short_description = "Comments count"
+    get_comments_count.short_description = _("Comments count")
 
 
 class CategoryAdminForm(forms.ModelForm):
-    rbac_groups = forms.ModelMultipleChoiceField(queryset=RBACGroup.objects.all(), required=False, widget=admin.widgets.FilteredSelectMultiple('Groups', False))
+    rbac_groups = forms.ModelMultipleChoiceField(
+        queryset=RBACGroup.objects.all(),
+        required=False,
+        widget=admin.widgets.FilteredSelectMultiple(_('Groups'), False),
+        label=_('Groups'),
+    )
 
     class Meta:
         model = Category
@@ -84,7 +90,12 @@ class CategoryAdminForm(forms.ModelForm):
 
         for rbac_group in cleaned_data.get('rbac_groups'):
             if rbac_group.identity_provider != identity_provider:
-                self.add_error('rbac_groups', ValidationError('Chosen Groups are associated with a different Identity Provider than the one selected here.'))
+                self.add_error(
+                    'rbac_groups',
+                    ValidationError(
+                        _('Chosen groups are associated with a different Identity Provider than the one selected here.')
+                    ),
+                )
 
         return cleaned_data
 
@@ -160,7 +171,7 @@ class CategoryAdmin(admin.ModelAdmin):
     def get_fieldsets(self, request, obj=None):
         basic_fieldset = [
             (
-                'Category Information',
+                _('Category information'),
                 {
                     'fields': ['uid', 'title', 'description', 'user', 'media_count', 'thumbnail', 'listings_thumbnail'],
                 },
@@ -169,13 +180,29 @@ class CategoryAdmin(admin.ModelAdmin):
 
         if getattr(settings, 'USE_RBAC', False):
             rbac_fieldset = [
-                ('RBAC Settings', {'fields': ['is_rbac_category'], 'classes': ['tab'], 'description': 'Role-Based Access Control settings'}),
-                ('Group Access', {'fields': ['rbac_groups'], 'description': 'Select the Groups that have access to category'}),
+                (
+                    _('RBAC settings'),
+                    {'fields': ['is_rbac_category'], 'classes': ['tab'], 'description': _('Role-Based Access Control settings')},
+                ),
+                (
+                    _('Group access'),
+                    {'fields': ['rbac_groups'], 'description': _('Select the groups that have access to the category')},
+                ),
             ]
             if getattr(settings, 'USE_IDENTITY_PROVIDERS', False):
                 rbac_fieldset = [
-                    ('RBAC Settings', {'fields': ['is_rbac_category', 'identity_provider'], 'classes': ['tab'], 'description': 'Role-Based Access Control settings'}),
-                    ('Group Access', {'fields': ['rbac_groups'], 'description': 'Select the Groups that have access to category'}),
+                    (
+                        _('RBAC settings'),
+                        {
+                            'fields': ['is_rbac_category', 'identity_provider'],
+                            'classes': ['tab'],
+                            'description': _('Role-Based Access Control settings'),
+                        },
+                    ),
+                    (
+                        _('Group access'),
+                        {'fields': ['rbac_groups'], 'description': _('Select the groups that have access to the category')},
+                    ),
                 ]
             return basic_fieldset + rbac_fieldset
         else:
@@ -215,12 +242,13 @@ class EncodingAdmin(admin.ModelAdmin):
     def get_title(self, obj):
         return str(obj)
 
-    get_title.short_description = "Encoding"
+    get_title.short_description = _("Encoding")
 
     def has_file(self, obj):
         return obj.media_encoding_url is not None
 
-    has_file.short_description = "Has file"
+    has_file.short_description = _("Has file")
+    has_file.boolean = True
 
 
 class TranscriptionRequestAdmin(admin.ModelAdmin):

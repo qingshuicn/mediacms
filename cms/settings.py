@@ -572,8 +572,7 @@ JAZZMIN_SETTINGS = {
 
     # Top Menu
     "topmenu_links": [
-        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Support", "url": "https://github.com/mediacms-io/mediacms", "new_window": True},
+        {"name": _("Home"), "url": "admin:index", "permissions": ["auth.view_user"]},
     ],
 
     # User Menu

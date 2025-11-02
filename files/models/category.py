@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.html import strip_tags
+from django.utils.translation import gettext_lazy as _
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit
 
@@ -11,19 +12,23 @@ from .utils import category_thumb_path, generate_uid
 class Category(models.Model):
     """A Category base model"""
 
-    uid = models.CharField(unique=True, max_length=36, default=generate_uid)
+    uid = models.CharField(unique=True, max_length=36, default=generate_uid, verbose_name=_("UID"))
 
-    add_date = models.DateTimeField(auto_now_add=True)
+    add_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Added on"))
 
-    title = models.CharField(max_length=100, db_index=True)
+    title = models.CharField(max_length=100, db_index=True, verbose_name=_("Title"))
 
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name=_("Description"))
 
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("User"))
 
-    is_global = models.BooleanField(default=False, help_text="global categories or user specific")
+    is_global = models.BooleanField(
+        default=False,
+        help_text=_("Global categories or user specific"),
+        verbose_name=_("Global category"),
+    )
 
-    media_count = models.IntegerField(default=0, help_text="number of media")
+    media_count = models.IntegerField(default=0, help_text=_("Number of media"), verbose_name=_("Media count"))
 
     thumbnail = ProcessedImageField(
         upload_to=category_thumb_path,
@@ -31,11 +36,23 @@ class Category(models.Model):
         format="JPEG",
         options={"quality": 85},
         blank=True,
+        verbose_name=_("Thumbnail"),
     )
 
-    listings_thumbnail = models.CharField(max_length=400, blank=True, null=True, help_text="Thumbnail to show on listings")
+    listings_thumbnail = models.CharField(
+        max_length=400,
+        blank=True,
+        null=True,
+        help_text=_("Thumbnail to show on listings"),
+        verbose_name=_("Listings thumbnail"),
+    )
 
-    is_rbac_category = models.BooleanField(default=False, db_index=True, help_text='If access to Category is controlled by role based membership of Groups')
+    is_rbac_category = models.BooleanField(
+        default=False,
+        db_index=True,
+        help_text=_("If access to Category is controlled by role based membership of Groups"),
+        verbose_name=_("RBAC category"),
+    )
 
     identity_provider = models.ForeignKey(
         'socialaccount.SocialApp',
@@ -43,8 +60,8 @@ class Category(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name='categories',
-        help_text='If category is related with a specific Identity Provider',
-        verbose_name='IDP Config Name',
+        help_text=_("If category is related with a specific Identity Provider"),
+        verbose_name=_("IDP config name"),
     )
 
     def __str__(self):
@@ -52,7 +69,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["title"]
-        verbose_name_plural = "Categories"
+        verbose_name = _("Category")
+        verbose_name_plural = _("Categories")
 
     def get_absolute_url(self):
         return f"{reverse('search')}?c={self.title}"

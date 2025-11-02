@@ -396,3 +396,434 @@ msgstr "视频剪辑请求"
 msgid "Transcription request"
 msgstr "转录请求"
 
+msgid "UID"
+msgstr "UID"
+
+msgid "Added on"
+msgstr "添加日期"
+
+msgid "Global categories or user specific"
+msgstr "全局分类或用户特定"
+
+msgid "Global category"
+msgstr "全局分类"
+
+msgid "Number of media"
+msgstr "媒体数量"
+
+msgid "Media count"
+msgstr "媒体数量"
+
+msgid "Listings thumbnail"
+msgstr "列表缩略图"
+
+msgid "Thumbnail to show on listings"
+msgstr "在列表中显示的缩略图"
+
+msgid "If access to Category is controlled by role based membership of Groups"
+msgstr "如果分类的访问权限由基于角色的群组成员关系控制"
+
+msgid "RBAC category"
+msgstr "RBAC 分类"
+
+msgid "If category is related with a specific Identity Provider"
+msgstr "如果分类与特定身份提供商关联"
+
+msgid "IDP config name"
+msgstr "身份提供商配置名称"
+
+msgid "Generate missing encoding(s)"
+msgstr "生成缺失的编码"
+
+msgid "Comments count"
+msgstr "评论数量"
+
+msgid "Chosen groups are associated with a different Identity Provider than the one selected here."
+msgstr "所选群组关联的身份提供商与当前选择的不一致。"
+
+msgid "Category information"
+msgstr "分类信息"
+
+msgid "RBAC settings"
+msgstr "RBAC 设置"
+
+msgid "Role-Based Access Control settings"
+msgstr "基于角色的访问控制设置"
+
+msgid "Group access"
+msgstr "群组访问"
+
+msgid "Select the groups that have access to the category"
+msgstr "选择可访问该分类的群组"
+
+msgid "A unique identifier for the media"
+msgstr "媒体的唯一标识符"
+
+msgid "Allow download"
+msgstr "允许下载"
+
+msgid "Channel"
+msgstr "频道"
+
+msgid "Date produced"
+msgstr "制作日期"
+
+msgid "Enable comments"
+msgstr "启用评论"
+
+msgid "Encoding status"
+msgstr "编码状态"
+
+msgid "Extracted media metadata info"
+msgstr "提取的媒体元数据信息"
+
+msgid "Featured by the user"
+msgstr "由用户精选"
+
+msgid "Friendly token"
+msgstr "友好标识符"
+
+msgid "HLS file"
+msgstr "HLS 文件"
+
+msgid "How many times a media is reported"
+msgstr "媒体被举报的次数"
+
+msgid "Identifier for the media"
+msgstr "媒体标识符"
+
+msgid "License"
+msgstr "许可证"
+
+msgid "Listable"
+msgstr "可列出"
+
+msgid "MD5 sum"
+msgstr "MD5 校验值"
+
+msgid "Media can be part of one or more categories"
+msgstr "媒体可以属于一个或多个分类"
+
+msgid "Media can exist in one or no channels"
+msgstr "媒体可以存在于一个频道或无频道"
+
+msgid "Media extracted big thumbnail, shown on media page"
+msgstr "媒体页面展示的大缩略图"
+
+msgid "Media extracted small thumbnail, shown on listings"
+msgstr "列表中展示的小缩略图"
+
+msgid "Media file"
+msgstr "媒体文件"
+
+msgid "Media info"
+msgstr "媒体信息"
+
+msgid "Media size in bytes, automatically calculated"
+msgstr "自动计算的媒体字节大小"
+
+msgid "Media title"
+msgstr "媒体标题"
+
+msgid "Media type"
+msgstr "媒体类型"
+
+msgid "Not exposed, used internally"
+msgstr "内部使用，不对外显示"
+
+msgid "Password for private media"
+msgstr "用于私密媒体的密码"
+
+msgid "Path to HLS file for videos"
+msgstr "视频 HLS 文件路径"
+
+msgid "Preview file path"
+msgstr "预览文件路径"
+
+msgid "Preview gif for videos, path in filesystem"
+msgstr "视频预览动图的文件系统路径"
+
+msgid "Rating categories"
+msgstr "评级分类"
+
+msgid "Rating category, if media rating is allowed"
+msgstr "如果允许媒体评级，对应的评级分类"
+
+msgid "Reported times"
+msgstr "举报次数"
+
+msgid "Reviewed"
+msgstr "已审核"
+
+msgid "Search data"
+msgstr "搜索数据"
+
+msgid "Select one or more out of the existing tags"
+msgstr "从已有标签中选择一个或多个"
+
+msgid "Sprites"
+msgstr "精灵图"
+
+msgid "Sprites file, only for videos, displayed on the video player"
+msgstr "仅用于视频，在播放器中显示的精灵图文件"
+
+msgid "State of media"
+msgstr "媒体状态"
+
+msgid "This image will characterize the media"
+msgstr "该图像将作为媒体的代表"
+
+msgid "Thumbnail from uploaded poster field"
+msgstr "来自已上传海报字段的缩略图"
+
+msgid "Thumbnail time"
+msgstr "缩略图时间点"
+
+msgid "Time on video that a thumbnail will be taken"
+msgstr "截取缩略图时的视频时间点"
+
+msgid "Transcribe auto-detected language"
+msgstr "转录自动检测的语言"
+
+msgid "Transcribe auto-detected language and translate to English"
+msgstr "转录自动检测的语言并翻译为英语"
+
+msgid "Upload image"
+msgstr "上传图片"
+
+msgid "Uploaded thumbnail"
+msgstr "已上传缩略图"
+
+msgid "Used to store all searchable info and metadata for a media"
+msgstr "用于存储媒体的所有可搜索信息和元数据"
+
+msgid "User featured"
+msgstr "用户精选"
+
+msgid "User that uploads the media"
+msgstr "上传媒体的用户"
+
+msgid "Video height"
+msgstr "视频高度"
+
+msgid "Whether comments will be allowed for this media"
+msgstr "是否允许该媒体开启评论"
+
+msgid "Whether it will appear on listings"
+msgstr "是否会出现在列表中"
+
+msgid "Whether media is globally featured by a MediaCMS editor"
+msgstr "媒体是否被 MediaCMS 编辑全局推荐"
+
+msgid "Whether media is reviewed, so it can appear on public listings"
+msgstr "媒体是否已审核以显示在公开列表中"
+
+msgid "Whether option to download media is shown"
+msgstr "是否显示媒体下载选项"
+
+msgid "Category"
+msgstr "分类"
+
+msgid "Chunk"
+msgstr "分片"
+
+msgid "Chunk file path"
+msgstr "分片文件路径"
+
+msgid "Chunks info"
+msgstr "分片信息"
+
+msgid "Commands"
+msgstr "命令"
+
+msgid "Commands run"
+msgstr "执行的命令"
+
+msgid "Encoding file"
+msgstr "编码文件"
+
+msgid "Extension"
+msgstr "扩展名"
+
+msgid "Has file"
+msgstr "包含文件"
+
+msgid "Is chunk?"
+msgstr "是否为分片？"
+
+msgid "Logs"
+msgstr "日志"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Profile"
+msgstr "配置"
+
+msgid "Progress"
+msgstr "进度"
+
+msgid "Retries"
+msgstr "重试次数"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Subtitle"
+msgstr "字幕"
+
+msgid "Tag"
+msgstr "标签"
+
+msgid "Task ID"
+msgstr "任务 ID"
+
+msgid "Temp file"
+msgstr "临时文件"
+
+msgid "Total run time (s)"
+msgstr "总运行时间(秒)"
+
+msgid "Updated on"
+msgstr "更新时间"
+
+msgid "Worker"
+msgstr "工作节点"
+
+msgid "Pending"
+msgstr "待处理"
+
+msgid "Running"
+msgstr "运行中"
+
+msgid "Fail"
+msgstr "失败"
+
+msgid "Success"
+msgstr "成功"
+
+msgid "Video"
+msgstr "视频"
+
+msgid "Image"
+msgstr "图片"
+
+msgid "Pdf"
+msgstr "PDF"
+
+msgid "Audio"
+msgstr "音频"
+
+msgid "Chapter data"
+msgstr "章节数据"
+
+msgid "Video chapter data"
+msgstr "视频章节数据"
+
+msgid "Initial"
+msgstr "初始"
+
+msgid "Replace Original"
+msgstr "替换原视频"
+
+msgid "Save as New"
+msgstr "保存为新视频"
+
+msgid "Create Segments"
+msgstr "创建片段"
+
+msgid "No Encoding"
+msgstr "无需编码"
+
+msgid "Precise"
+msgstr "精确模式"
+
+msgid "Video action"
+msgstr "处理方式"
+
+msgid "Trim style"
+msgstr "裁剪模式"
+
+msgid "Timestamps"
+msgstr "时间戳"
+
+msgid "Timestamps for trimming"
+msgstr "用于裁剪的时间戳"
+
+msgid "Code"
+msgstr "代码"
+
+msgid "File has to be WebVTT format"
+msgstr "文件必须是 WebVTT 格式"
+
+msgid "Language code"
+msgstr "语言代码"
+
+msgid "Language name"
+msgstr "语言名称"
+
+msgid "Parent"
+msgstr "父级"
+
+msgid "Subtitle/CC file"
+msgstr "字幕文件"
+
+msgid "Text"
+msgstr "文本"
+
+msgid "Translate to English"
+msgstr "翻译为英语"
+
+msgid "Edited on"
+msgstr "编辑时间"
+
+msgid "File"
+msgstr "文件"
+
+msgid "File type"
+msgstr "文件类型"
+
+msgid "Original filename"
+msgstr "原始文件名"
+
+msgid "Slug"
+msgstr "Slug"
+
+msgid "Uploaded at"
+msgstr "上传时间"
+
+msgid "About me"
+msgstr "关于我"
+
+msgid "Advanced user"
+msgstr "高级用户"
+
+msgid "Date added"
+msgstr "添加日期"
+
+msgid "Full name"
+msgstr "全名"
+
+msgid "Is approved"
+msgstr "已审批"
+
+msgid "Is featured"
+msgstr "精选"
+
+msgid "Location"
+msgstr "位置"
+
+msgid "Logo"
+msgstr "头像"
+
+msgid "MediaCMS Editor"
+msgstr "MediaCMS 编辑"
+
+msgid "MediaCMS Manager"
+msgstr "MediaCMS 管理员"
+
+msgid "Whether allow contact will be shown on profile page"
+msgstr "是否在个人页面显示联系方式"
+
+msgid "Whether you will receive email notifications for comments added to your content"
+msgstr "是否接收针对内容评论的邮件通知"
