@@ -266,4 +266,39 @@ admin.site.register(Language, LanguageAdmin)
 admin.site.register(VideoTrimRequest, VideoTrimRequestAdmin)
 admin.site.register(TranscriptionRequest, TranscriptionRequestAdmin)
 
-Media._meta.app_config.verbose_name = "Media"
+# 设置模型的中文显示名称
+from django.utils.translation import gettext_lazy as _
+
+Media._meta.app_config.verbose_name = _("Media")
+Media._meta.verbose_name = _("Media")
+Media._meta.verbose_name_plural = _("Medias")
+
+Comment._meta.verbose_name = _("Comment")
+Comment._meta.verbose_name_plural = _("Comments")
+
+Category._meta.verbose_name = _("Category")
+Category._meta.verbose_name_plural = _("Categories")
+
+Tag._meta.verbose_name = _("Tag")
+Tag._meta.verbose_name_plural = _("Tags")
+
+Page._meta.verbose_name = _("Page")
+Page._meta.verbose_name_plural = _("Pages")
+
+Subtitle._meta.verbose_name = _("Subtitle")
+Subtitle._meta.verbose_name_plural = _("Subtitles")
+
+Language._meta.verbose_name = _("Language")
+Language._meta.verbose_name_plural = _("Languages")
+
+EncodeProfile._meta.verbose_name = _("Encode profile")
+EncodeProfile._meta.verbose_name_plural = _("Encode profiles")
+
+Encoding._meta.verbose_name = _("Encoding")
+Encoding._meta.verbose_name_plural = _("Encodings")
+
+VideoTrimRequest._meta.verbose_name = _("Video trim request")
+VideoTrimRequest._meta.verbose_name_plural = _("Video trim requests")
+
+TranscriptionRequest._meta.verbose_name = _("Transcription request")
+TranscriptionRequest._meta.verbose_name_plural = _("Transcription requests")

@@ -1,0 +1,398 @@
+# MediaCMS 简体中文翻译
+# Copyright (C) MediaCMS
+# This file is distributed under the same license as the MediaCMS package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MediaCMS\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-02 00:00+0000\n"
+"PO-Revision-Date: 2024-11-02 00:00+0000\n"
+"Last-Translator: MediaCMS Team\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# Django Auth 模型字段翻译
+msgid "first name"
+msgstr "名字"
+
+msgid "last name"
+msgstr "姓氏"
+
+msgid "First name"
+msgstr "名字"
+
+msgid "Last name"
+msgstr "姓氏"
+
+msgid "staff status"
+msgstr "职员状态"
+
+msgid "Staff status"
+msgstr "职员状态"
+
+msgid "active"
+msgstr "激活"
+
+msgid "Active"
+msgstr "激活"
+
+msgid "superuser status"
+msgstr "超级用户状态"
+
+msgid "Superuser status"
+msgstr "超级用户状态"
+
+msgid "groups"
+msgstr "组"
+
+msgid "Groups"
+msgstr "组"
+
+msgid "user permissions"
+msgstr "用户权限"
+
+msgid "User permissions"
+msgstr "用户权限"
+
+msgid "last login"
+msgstr "上次登录"
+
+msgid "Last login"
+msgstr "上次登录"
+
+msgid "date joined"
+msgstr "加入日期"
+
+msgid "Date joined"
+msgstr "加入日期"
+
+msgid "username"
+msgstr "用户名"
+
+msgid "Username"
+msgstr "用户名"
+
+msgid "email address"
+msgstr "电子邮件地址"
+
+msgid "Email address"
+msgstr "电子邮件地址"
+
+msgid "password"
+msgstr "密码"
+
+msgid "Password"
+msgstr "密码"
+
+# 常用管理后台词汇
+msgid "Home"
+msgstr "首页"
+
+msgid "Dashboard"
+msgstr "仪表盘"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Change"
+msgstr "修改"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save and continue editing"
+msgstr "保存并继续编辑"
+
+msgid "Save and add another"
+msgstr "保存并新增另一个"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Actions"
+msgstr "动作"
+
+msgid "Recent actions"
+msgstr "最近动作"
+
+msgid "Site administration"
+msgstr "站点管理"
+
+msgid "Log in"
+msgstr "登录"
+
+msgid "Log out"
+msgstr "注销"
+
+msgid "Permissions"
+msgstr "权限"
+
+msgid "Important dates"
+msgstr "重要日期"
+
+msgid "Personal info"
+msgstr "个人信息"
+
+msgid "View on site"
+msgstr "在网站上查看"
+
+msgid "Yes"
+msgstr "是"
+
+msgid "No"
+msgstr "否"
+
+msgid "Unknown"
+msgstr "未知"
+
+msgid "All"
+msgstr "全部"
+
+msgid "Any date"
+msgstr "任意日期"
+
+msgid "Today"
+msgstr "今天"
+
+msgid "Past 7 days"
+msgstr "过去7天"
+
+msgid "This month"
+msgstr "本月"
+
+msgid "This year"
+msgstr "今年"
+
+msgid "No date"
+msgstr "没有日期"
+
+msgid "Has date"
+msgstr "具有日期"
+
+msgid "Empty"
+msgstr "空"
+
+msgid "Not empty"
+msgstr "非空"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Select all"
+msgstr "全选"
+
+msgid "Clear selection"
+msgstr "清除选择"
+
+msgid "Are you sure?"
+msgstr "你确定吗？"
+
+msgid "Go"
+msgstr "执行"
+
+msgid "Show"
+msgstr "显示"
+
+msgid "Hide"
+msgstr "隐藏"
+
+# MediaCMS 特定翻译
+msgid "Media"
+msgstr "媒体"
+
+msgid "Users"
+msgstr "用户"
+
+msgid "Categories"
+msgstr "分类"
+
+msgid "Tags"
+msgstr "标签"
+
+msgid "Comments"
+msgstr "评论"
+
+msgid "Playlists"
+msgstr "播放列表"
+
+msgid "Channels"
+msgstr "频道"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Views"
+msgstr "观看次数"
+
+msgid "Likes"
+msgstr "点赞"
+
+msgid "Dislikes"
+msgstr "踩"
+
+msgid "Published"
+msgstr "已发布"
+
+msgid "Private"
+msgstr "私有"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Unlisted"
+msgstr "不公开"
+
+msgid "Featured"
+msgstr "精选"
+
+msgid "Encoding"
+msgstr "编码中"
+
+msgid "Encoded"
+msgstr "已编码"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Upload date"
+msgstr "上传日期"
+
+msgid "Add date"
+msgstr "添加日期"
+
+msgid "Edit date"
+msgstr "编辑日期"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "Duration"
+msgstr "时长"
+
+msgid "Resolution"
+msgstr "分辨率"
+
+msgid "Thumbnail"
+msgstr "缩略图"
+
+msgid "Poster"
+msgstr "海报"
+
+msgid "Subtitles"
+msgstr "字幕"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Quality"
+msgstr "质量"
+
+msgid "Format"
+msgstr "格式"
+
+msgid "Codec"
+msgstr "编解码器"
+
+msgid "Bitrate"
+msgstr "比特率"
+
+msgid "Framerate"
+msgstr "帧率"
+
+msgid "Aspect ratio"
+msgstr "宽高比"
+
+# 额外的管理后台翻译
+msgid "View Site"
+msgstr "查看网站"
+
+msgid "Support"
+msgstr "支持"
+
+msgid "file type"
+msgstr "文件类型"
+
+msgid "uploaded at"
+msgstr "上传时间"
+
+msgid "TinyMCE Media"
+msgstr "页面媒体"
+
+msgid "Emailaddresses"
+msgstr "电子邮件地址"
+
+msgid "Encode profiles"
+msgstr "编码配置"
+
+msgid "Encodings"
+msgstr "编码"
+
+msgid "Languages"
+msgstr "语言"
+
+msgid "Medias"
+msgstr "媒体"
+
+msgid "Pages"
+msgstr "页面"
+
+msgid "Transcription requests"
+msgstr "转录请求"
+
+msgid "Video trim requests"
+msgstr "视频剪辑请求"
+
+msgid "Welcome"
+msgstr "欢迎"
+
+msgid "Log Out"
+msgstr "退出登录"
+
+msgid "Change Password"
+msgstr "修改密码"
+
+msgid "View Profile"
+msgstr "查看个人资料"
+
+# 模型名称翻译（单数形式）
+msgid "User"
+msgstr "用户"
+
+msgid "Comment"
+msgstr "评论"
+
+msgid "Page"
+msgstr "页面"
+
+msgid "Encode profile"
+msgstr "编码配置"
+
+msgid "Video trim request"
+msgstr "视频剪辑请求"
+
+msgid "Transcription request"
+msgstr "转录请求"
+

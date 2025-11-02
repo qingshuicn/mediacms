@@ -173,6 +173,12 @@ SECRET_KEY = "2dii4cog7k=5n37$fz)8dst)kg(s3&10)^qa*gv(kk+nv-z&cu"
 
 TEMP_DIRECTORY = "/tmp"  # Don't use a temp directory inside BASE_DIR!!!
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 本地翻译文件路径
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 STATIC_URL = "/static/"  # where js/css files are stored on the filesystem
 MEDIA_URL = "/media/"  # URL where static files are served from the server
 STATIC_ROOT = BASE_DIR + "/static/"
@@ -333,6 +339,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.template.context_processors.i18n",
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.media",
                 "django.contrib.messages.context_processors.messages",
@@ -552,6 +559,53 @@ DJANGO_ADMIN_URL = "admin/"
 USE_SAML = False
 USE_RBAC = False
 USE_IDENTITY_PROVIDERS = False
+
+# Jazzmin Admin UI Configuration
+JAZZMIN_SETTINGS = {
+    "site_title": "MediaCMS Admin",
+    "site_header": "MediaCMS",
+    "site_brand": "MediaCMS",
+    "welcome_sign": "Welcome to MediaCMS Admin",
+    "copyright": "MediaCMS",
+    "search_model": "users.User",
+    "user_avatar": None,
+
+    # Top Menu
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Support", "url": "https://github.com/mediacms-io/mediacms", "new_window": True},
+    ],
+
+    # User Menu
+    "usermenu_links": [
+        {"model": "users.user"}
+    ],
+
+    # Side Menu
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "order_with_respect_to": ["users", "files", "actions"],
+
+    # Icons
+    "icons": {
+        "users.user": "fas fa-user",
+        "files.media": "fas fa-video",
+        "files.category": "fas fa-folder",
+        "files.tag": "fas fa-tag",
+        "actions.action": "fas fa-chart-line",
+    },
+
+    # UI Tweaks
+    "show_ui_builder": False,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {"users.user": "collapsible", "users.group": "vertical_tabs"},
+
+    # Language Chooser - 启用语言选择器
+    "language_chooser": True,
+}
+
 JAZZMIN_UI_TWEAKS = {"theme": "flatly"}
 
 USE_ROUNDED_CORNERS = True

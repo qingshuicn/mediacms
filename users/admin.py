@@ -28,3 +28,10 @@ class UserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+# 设置 User 模型的中文显示名称
+from django.utils.translation import gettext_lazy as _
+
+User._meta.verbose_name = _("User")
+User._meta.verbose_name_plural = _("Users")
+User._meta.app_config.verbose_name = _("Users")
