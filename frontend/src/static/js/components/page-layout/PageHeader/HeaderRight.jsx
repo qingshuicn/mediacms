@@ -44,7 +44,7 @@ function headerPopupPages(user, popupNavItems, hasHeaderThemeSwitcher) {
               <UserThumbnail size="medium" />
             </span>
             <span>
-              <span className="username">{(user?.name || user?.email || user?.username || "User")}</span>
+              <span className="username">{user?.name || user?.email || user?.username || translateString('User')}</span>
             </span>
           </a>
         </PopupTop>
@@ -59,11 +59,15 @@ function headerPopupPages(user, popupNavItems, hasHeaderThemeSwitcher) {
         <PopupTop>
           <div>
             <span>
-              <CircleIconButton className="menu-item-icon change-page" data-page-id="main" aria-label="Switch theme">
+              <CircleIconButton
+                className="menu-item-icon change-page"
+                data-page-id="main"
+                aria-label={translateString('Switch theme')}
+              >
                 <i className="material-icons">arrow_back</i>
               </CircleIconButton>
             </span>
-            <span>Switch theme</span>
+            <span>{translateString('Switch theme')}</span>
           </div>
         </PopupTop>
         <PopupMain>
@@ -156,7 +160,7 @@ export function HeaderRight(props) {
                 <div className="page-header-right">
                   <div>
                     <div className="mobile-search-toggle">
-                      <CircleIconButton onClick={toggleMobileSearch} aria-label="Search">
+                      <CircleIconButton onClick={toggleMobileSearch} aria-label={translateString('Search')}>
                         <MaterialIcon type="search" />
                       </CircleIconButton>
                     </div>
@@ -171,7 +175,7 @@ export function HeaderRight(props) {
                     >
                       <PopupTrigger contentRef={popupContentRef}>
                         {user.is.anonymous ? (
-                          <CircleIconButton aria-label="Settings">
+                          <CircleIconButton aria-label={translateString('Settings')}>
                             <MaterialIcon type="more_vert" />
                           </CircleIconButton>
                         ) : (

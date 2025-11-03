@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useManagementTableHeader } from '../../../utils/hooks/';
 import { MaterialIcon } from '../../_shared/material-icon/MaterialIcon';
+import { translateString } from '../../../utils/helpers/';
 
 export function ManageUsersItemHeader(props) {
   const [sort, order, isSelected, sortByColumn, checkAll] = useManagementTableHeader({ ...props, type: 'users' });
@@ -16,7 +17,7 @@ export function ManageUsersItemHeader(props) {
         onClick={sortByColumn}
         className={'mi-name mi-col-sort' + ('name' === sort ? ('asc' === order ? ' asc' : ' desc') : '')}
       >
-        Name
+        {translateString('Name')}
         <div className="mi-col-sort-icons">
           <span>
             <MaterialIcon type="arrow_drop_up" />
@@ -26,13 +27,13 @@ export function ManageUsersItemHeader(props) {
           </span>
         </div>
       </div>
-      <div className="mi-username">Username</div>
+      <div className="mi-username">{translateString('Username')}</div>
       <div
         id="add_date"
         onClick={sortByColumn}
         className={'mi-added mi-col-sort' + ('add_date' === sort ? ('asc' === order ? ' asc' : ' desc') : '')}
       >
-        Date added
+        {translateString('Date added')}
         <div className="mi-col-sort-icons">
           <span>
             <MaterialIcon type="arrow_drop_up" />
@@ -42,11 +43,11 @@ export function ManageUsersItemHeader(props) {
           </span>
         </div>
       </div>
-      {props.has_roles ? <div className="mi-role">Role</div> : null}
-      {props.has_verified ? <div className="mi-verified">Verified</div> : null}
-      {props.has_trusted ? <div className="mi-trusted">Trusted</div> : null}
-      {props.has_approved ? <div className="mi-approved">Approved</div> : null}
-      <div className="mi-featured">Featured</div>
+      {props.has_roles ? <div className="mi-role">{translateString('Role')}</div> : null}
+      {props.has_verified ? <div className="mi-verified">{translateString('Verified')}</div> : null}
+      {props.has_trusted ? <div className="mi-trusted">{translateString('Trusted')}</div> : null}
+      {props.has_approved ? <div className="mi-approved">{translateString('Approved')}</div> : null}
+      <div className="mi-featured">{translateString('Featured')}</div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UrlParse from 'url-parse';
 import { ApiUrlContext, MemberContext, SiteContext } from '../utils/contexts/';
-import { formatInnerLink, csrfToken, postRequest } from '../utils/helpers/';
+import { formatInnerLink, csrfToken, postRequest, translateString } from '../utils/helpers/';
 import { PageActions } from '../utils/actions/';
 import { PageStore, ProfilePageStore } from '../utils/stores/';
 import ProfilePagesHeader from '../components/profile-page/ProfilePagesHeader';
@@ -51,7 +51,7 @@ class ChannelContactForm extends React.PureComponent {
           function () {
             // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
             PageActions.addNotification(
-              'Your message was successfully submitted to ' + this.props.author.name,
+              translateString('Your message was successfully submitted to') + ' ' + this.props.author.name,
               'messageSubmitSucceed'
             );
           }.bind(this),
@@ -72,7 +72,10 @@ class ChannelContactForm extends React.PureComponent {
         setTimeout(
           function () {
             // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-            PageActions.addNotification('Your message failed to submit. Please try again', 'messageSubmitFailed');
+            PageActions.addNotification(
+              translateString('Your message failed to submit. Please try again'),
+              'messageSubmitFailed'
+            );
           }.bind(this),
           100
         );
@@ -118,11 +121,11 @@ class ChannelContactForm extends React.PureComponent {
     return (
       <div className="media-list-row profile-contact">
         <div className="media-list-header">
-          <h2>Contact</h2>
+          <h2>{translateString('Contact')}</h2>
         </div>
         <form method="post" className={'user-contact-form' + (this.state.isSending ? ' pending-response' : '')}>
           <span>
-            <label>Subject</label>
+            <label>{translateString('Subject')}</label>
             <input
               ref="msgSubject"
               type="text"
@@ -132,7 +135,7 @@ class ChannelContactForm extends React.PureComponent {
             />
           </span>
           <span>
-            <label>Message</label>
+            <label>{translateString('Message')}</label>
             <textarea
               ref="msgBody"
               required={true}
@@ -142,7 +145,7 @@ class ChannelContactForm extends React.PureComponent {
               value={this.state.body}
             ></textarea>
           </span>
-          <button onClick={this.onSubmit}>SUBMIT</button>
+          <button onClick={this.onSubmit}>{translateString('SUBMIT')}</button>
         </form>
       </div>
     );
@@ -205,7 +208,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
         }
         details.push(
           <li key={'location'}>
-            <span>Location:</span>
+            <span>{translateString('Location')}:</span>
             <span>{locations}</span>
           </li>
         );
@@ -217,7 +220,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
         // TODO: Remove it, doesn't really need. Remains for backward compatibility.
         details.push(
           <li key={'location'}>
-            <span>Location:</span>
+            <span>{translateString('Location')}:</span>
             <span>{this.state.author.location}</span>
           </li>
         );
@@ -234,7 +237,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
         if ('' !== lnk) {
           details.push(
             <li key={'website'}>
-              <span>Website:</span>
+              <span>{translateString('Website')}:</span>
               <span>{lnk}</span>
             </li>
           );
@@ -258,7 +261,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
           }
           details.push(
             <li key={'social_media'}>
-              <span>Social media:</span>
+              <span>{translateString('Social media')}:</span>
               <span className="author-social-media">{socialMedia}</span>
             </li>
           );
@@ -283,7 +286,7 @@ export class ProfileAboutPage extends ProfileMediaPage {
             )}
 
             {!details.length ? null : (
-              <MediaListRow title={'Details'}>
+            <MediaListRow title={translateString('Details')}>
                 <ul className="profile-details">{details}</ul>
               </MediaListRow>
             )}
@@ -301,5 +304,5 @@ ProfileAboutPage.propTypes = {
 };
 
 ProfileAboutPage.defaultProps = {
-  title: 'Biography',
+  title: translateString('Biography'),
 };

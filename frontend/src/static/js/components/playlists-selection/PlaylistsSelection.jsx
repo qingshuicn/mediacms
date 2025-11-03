@@ -4,6 +4,7 @@ import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { PageActions, MediaPageActions } from '../../utils/actions/';
 import { CircleIconButton, MaterialIcon } from '../_shared';
 import { PlaylistCreationForm } from '../playlist-form/PlaylistCreationForm';
+import { translateString } from '../../utils/helpers/';
 
 import './PlaylistsSelection.scss';
 
@@ -59,13 +60,13 @@ export function PlaylistsSelection(props) {
     setPlaylists(MediaPageStore.get('playlists'));
     setDate(new Date());
     setTimeout(function () {
-      PageActions.addNotification('Media added to playlist', 'playlistMediaAdditionComplete');
+      PageActions.addNotification(translateString('Media added to playlist'), 'playlistMediaAdditionComplete');
     }, 100);
   }
 
   function onPlaylistMediaAdditionFail() {
     setTimeout(function () {
-      PageActions.addNotification("Media's addition to playlist failed", 'playlistMediaAdditionFail');
+      PageActions.addNotification(translateString("Media's addition to playlist failed"), 'playlistMediaAdditionFail');
     }, 100);
   }
 
@@ -73,13 +74,13 @@ export function PlaylistsSelection(props) {
     setPlaylists(MediaPageStore.get('playlists'));
     setDate(new Date());
     setTimeout(function () {
-      PageActions.addNotification('Media removed from playlist', 'playlistMediaRemovalComplete');
+      PageActions.addNotification(translateString('Media removed from playlist'), 'playlistMediaRemovalComplete');
     }, 100);
   }
 
   function onPlaylistMediaRemovalFail() {
     setTimeout(function () {
-      PageActions.addNotification("Media's removal from playlist failed", 'playlistMediaaRemovalFail');
+      PageActions.addNotification(translateString("Media's removal from playlist failed"), 'playlistMediaaRemovalFail');
     }, 100);
   }
 
@@ -156,7 +157,7 @@ export function PlaylistsSelection(props) {
   return (
     <div ref={containerRef} className="saveto-popup">
       <div className="saveto-title">
-        Save to...
+        {translateString('Save to...')}
         <CircleIconButton type="button" onClick={onClickExit}>
           <MaterialIcon type="close" />
         </CircleIconButton>
@@ -173,7 +174,7 @@ export function PlaylistsSelection(props) {
       ) : (
         <CircleIconButton className="saveto-create" type="button" onClick={togglePlaylistCreationForm}>
           <MaterialIcon type="add" />
-          Create a new playlist
+          {translateString('Create a new playlist')}
         </CircleIconButton>
       )}
     </div>

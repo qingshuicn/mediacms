@@ -3,6 +3,7 @@ import { SiteContext } from '../../utils/contexts/';
 import { MediaPageStore } from '../../utils/stores/';
 import { SpinnerLoader } from '../_shared';
 import Tooltip from '../_shared/ToolTip';
+import { translateString } from '../../utils/helpers/';
 
 export default function ImageViewer() {
   const site = useContext(SiteContext);
@@ -106,14 +107,18 @@ export default function ImageViewer() {
 
   return !image ? null : (
     <div className="viewer-image-container">
-      <Tooltip content={'load full-image'} position="center">
+      <Tooltip content={translateString('load full-image')} position="center">
         <img src={image} alt={MediaPageStore.get('media-data').title || null} onClick={() => setIsModalOpen(true)} />
       </Tooltip>
       {isModalOpen && slideshowItems && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
           <div className="slideshow-container" onClick={(e) => e.stopPropagation()}>
             {!isImgLoading && (
-              <button className="arrow left" onClick={handlePrevious} aria-label="Previous slide">
+              <button
+                className="arrow left"
+                onClick={handlePrevious}
+                aria-label={translateString('Previous slide')}
+              >
                 &#8249;
               </button>
             )}
@@ -121,7 +126,7 @@ export default function ImageViewer() {
               {isImgLoading && <SpinnerLoader size="large" />}
               <img
                 src={site.url + '/' + slideshowItems[currentIndex]?.original_media_url}
-                alt={`Slide ${currentIndex + 1}`}
+                alt={`${translateString('Slide')} ${currentIndex + 1}`}
                 onClick={() => handleImageClick(currentIndex)}
                 onLoad={() => setIsImgLoading(false)}
                 onError={() => setIsImgLoading(false)}
@@ -130,13 +135,17 @@ export default function ImageViewer() {
               {!isImgLoading && <div className="slideshow-title">{slideshowItems[currentIndex]?.title}</div>}
             </div>
             {!isImgLoading && (
-              <button className="arrow right" onClick={handleNext} aria-label="Next slide">
+              <button className="arrow right" onClick={handleNext} aria-label={translateString('Next slide')}>
                 &#8250;
               </button>
             )}
             <div className="thumbnail-navigation">
               {slideshowItems.length > 5 && (
-                <button className="arrow left" onClick={() => scrollThumbnails('left')} aria-label="Scroll left">
+                <button
+                  className="arrow left"
+                  onClick={() => scrollThumbnails('left')}
+                  aria-label={translateString('Scroll left')}
+                >
                   &#8249;
                 </button>
               )}
@@ -148,14 +157,18 @@ export default function ImageViewer() {
                   <img
                     key={index}
                     src={site.url + '/' + item.thumbnail_url}
-                    alt={`Thumbnail ${index + 1}`}
+                    alt={`${translateString('Thumbnail')} ${index + 1}`}
                     className={`thumbnail ${currentIndex === index ? 'active' : ''}`}
                     onClick={() => handleDotClick(index)}
                   />
                 ))}
               </div>
               {slideshowItems.length > 5 && (
-                <button className="arrow right" onClick={() => scrollThumbnails('right')} aria-label="Scroll right">
+                <button
+                  className="arrow right"
+                  onClick={() => scrollThumbnails('right')}
+                  aria-label={translateString('Scroll right')}
+                >
                   &#8250;
                 </button>
               )}

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useTheme } from '../../../utils/hooks/';
+import { translateString } from '../../../utils/helpers/';
 
 import './ThemeSwitchOption.scss';
 
@@ -27,7 +28,7 @@ export function HeaderThemeSwitcher() {
 
   return (
     <div className="theme-switch" tabIndex={0} onKeyPress={onKeyPress} onClick={onClick}>
-      <span>Dark Theme</span>
+      <span>{translateString('Dark theme')}</span>
       <span>
         <label className="checkbox-label right-selectbox">
           <span className="checkbox-switcher-wrap">

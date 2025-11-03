@@ -4,6 +4,7 @@ import { PageStore, MediaPageStore } from '../../utils/stores/';
 import { PageActions, MediaPageActions } from '../../utils/actions/';
 import ItemsInlineSlider from '../item-list/includes/itemLists/ItemsInlineSlider';
 import { CircleIconButton } from '../_shared/';
+import { translateString } from '../../utils/helpers/';
 
 function shareOptionsList() {
   const socialMedia = ShareOptionsContext._currentValue;
@@ -23,7 +24,7 @@ function shareOptionsList() {
         break;
       case 'email':
         ret[socialMedia[i]] = {
-          title: 'Email',
+          title: translateString('Email'),
           shareUrl: 'mailto:?body=' + mediaUrl,
         };
         break;
@@ -49,7 +50,7 @@ function ShareOptions() {
               <span>
                 <i className="material-icons">code</i>
               </span>
-              <span>Embed</span>
+              <span>{translateString('Embed')}</span>
             </button>
           </div>
         );
@@ -152,7 +153,7 @@ export function MediaShareOptions(props) {
   function onCompleteCopyMediaLink() {
     // FIXME: Without delay throws conflict error [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Link copied to clipboard', 'clipboardLinkCopy');
+      PageActions.addNotification(translateString('Link copied to clipboard'), 'clipboardLinkCopy');
     }, 100);
   }
 
@@ -224,7 +225,7 @@ export function MediaShareOptions(props) {
         className="scrollable-content"
         style={null !== dimensions.maxFormContentHeight ? { maxHeight: dimensions.maxFormContentHeight + 'px' } : null}
       >
-        <div className="share-popup-title">Share media</div>
+        <div className="share-popup-title">{translateString('Share media')}</div>
         {shareOptions.length ? (
           <div className="share-options">
             {sliderButtonsVisible.prev ? <PreviousSlideButton onClick={prevSlide} /> : null}
@@ -238,7 +239,7 @@ export function MediaShareOptions(props) {
       <div className="copy-field">
         <div>
           <input type="text" readOnly value={shareMediaLink} />
-          <button onClick={onClickCopyMediaLink}>COPY</button>
+          <button onClick={onClickCopyMediaLink}>{translateString('COPY')}</button>
         </div>
       </div>
       <div className="start-at">
@@ -250,7 +251,7 @@ export function MediaShareOptions(props) {
               checked={startAtSelected} 
               onChange={updateStartAtCheckbox}
             />
-            Start at {formattedTimestamp}
+            {translateString('Start at')} {formattedTimestamp}
           </label>
         </div>
     </div>

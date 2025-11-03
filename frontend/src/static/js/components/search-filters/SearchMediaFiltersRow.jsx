@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMediaFilter } from '../../utils/hooks/';
 import { MaterialIcon, PopupMain } from '../_shared';
+import { translateString } from '../../utils/helpers/';
 
 function MediaFilterOption(props) {
   function onSelectOption() {
@@ -93,7 +94,7 @@ function MediaTypesFilter(props) {
   return (
     <div ref={containerRef} className="media-filter">
       <PopupTrigger contentRef={popupContentRef}>
-        <button className="popup-trigger" aria-label="Filter">
+        <button className="popup-trigger" aria-label={translateString('Filter')}>
           <span className="filter-button-label">
             <span className="filter-button-label-text">{label}</span>
             <MaterialIcon type="arrow_drop_down" />
@@ -131,7 +132,7 @@ function MediaSortingFilter(props) {
   return (
     <div ref={containerRef} className="media-filter">
       <PopupTrigger contentRef={popupContentRef}>
-        <button className="popup-trigger" aria-label="Filter">
+        <button className="popup-trigger" aria-label={translateString('Filter')}>
           <MaterialIcon type="sort" />
           <span className="filter-button-label">
             <span className="filter-button-label-text">{props.label}</span>

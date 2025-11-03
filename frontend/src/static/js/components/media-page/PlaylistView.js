@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LinksContext } from '../../utils/contexts/';
 import { PlaylistViewStore } from '../../utils/stores/';
-import { PositiveIntegerOrZero } from '../../utils/helpers/';
+import { PositiveIntegerOrZero, translateString } from '../../utils/helpers/';
 import { PageActions, PlaylistViewActions } from '../../utils/actions/';
 import { CircleIconButton } from '../_shared/';
 import { PlaylistPlaybackMedia } from './PlaylistPlaybackMedia';
@@ -63,9 +63,9 @@ export default class PlaylistView extends React.PureComponent {
       },
       () => {
         if (this.state.shuffle) {
-          PageActions.addNotification('Playlist shuffle is on', 'shuffle-on');
+          PageActions.addNotification(translateString('Playlist shuffle is on'), 'shuffle-on');
         } else {
-          PageActions.addNotification('Playlist shuffle is off', 'shuffle-off');
+          PageActions.addNotification(translateString('Playlist shuffle is off'), 'shuffle-off');
         }
       }
     );
@@ -78,9 +78,9 @@ export default class PlaylistView extends React.PureComponent {
       },
       () => {
         if (this.state.loopRepeat) {
-          PageActions.addNotification('Playlist loop is on', 'loop-on');
+          PageActions.addNotification(translateString('Playlist loop is on'), 'loop-on');
         } else {
-          PageActions.addNotification('Playlist loop is off', 'loop-off');
+          PageActions.addNotification(translateString('Playlist loop is off'), 'loop-off');
         }
       }
     );
@@ -93,9 +93,9 @@ export default class PlaylistView extends React.PureComponent {
       },
       () => {
         if (this.state.savedPlaylist) {
-          PageActions.addNotification('Added to playlists library', 'added-to-playlists-lib');
+          PageActions.addNotification(translateString('Added to playlists library'), 'added-to-playlists-lib');
         } else {
-          PageActions.addNotification('Removed from playlists library', 'removed-from-playlists-lib');
+          PageActions.addNotification(translateString('Removed from playlists library'), 'removed-from-playlists-lib');
         }
       }
     );
@@ -143,7 +143,7 @@ export default class PlaylistView extends React.PureComponent {
               <CircleIconButton
                 className={this.state.loopRepeat ? 'active' : ''}
                 onClick={this.onLoopClick}
-                title="Loop playlist"
+                title={translateString('Loop playlist')}
               >
                 <i className="material-icons">repeat</i>
               </CircleIconButton>

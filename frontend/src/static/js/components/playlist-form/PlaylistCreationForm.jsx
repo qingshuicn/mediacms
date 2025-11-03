@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { PageActions, MediaPageActions, PlaylistPageActions } from '../../utils/actions/';
 import { MediaPageStore, PlaylistPageStore } from '../../utils/stores/';
-import { addClassname, removeClassname } from '../../utils/helpers/';
+import { addClassname, removeClassname, translateString } from '../../utils/helpers/';
 
 import './PlaylistForm.scss';
 
@@ -87,7 +87,7 @@ export function PlaylistCreationForm(props) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
 
     setTimeout(function () {
-      PageActions.addNotification('Playlist created', 'playlistCreationCompleted');
+      PageActions.addNotification(translateString('Playlist created'), 'playlistCreationCompleted');
       const plistData = {
         playlist_id: (function (_url_) {
           let ret = _url_.split('/');
@@ -106,7 +106,7 @@ export function PlaylistCreationForm(props) {
   function playlistCreationFailed() {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Playlist creation failed', 'playlistCreationFailed');
+      PageActions.addNotification(translateString('Playlist creation failed'), 'playlistCreationFailed');
     }, 100);
   }
 
@@ -129,11 +129,11 @@ export function PlaylistCreationForm(props) {
   return (
     <div className="playlist-form-wrap">
       <div className="playlist-form-field playlist-title" ref={nameRef}>
-        <span className="playlist-form-label">Title</span>
+        <span className="playlist-form-label">{translateString('Title')}</span>
         <input
           ref={nameInputRef}
           type="text"
-          placeholder="Enter playlist title..."
+          placeholder={translateString('Enter playlist title...')}
           value={title}
           onChange={onChangeTitle}
           onFocus={onFocusPlaylistNameInput}
@@ -143,11 +143,11 @@ export function PlaylistCreationForm(props) {
       </div>
 
       <div className="playlist-form-field playlist-description" ref={descriptionRef}>
-        <span className="playlist-form-label">Description</span>
+        <span className="playlist-form-label">{translateString('Description')}</span>
         <textarea
           ref={descriptionInputRef}
           rows="1"
-          placeholder="Enter playlist description..."
+          placeholder={translateString('Enter playlist description...')}
           value={description}
           onChange={onChangeDescription}
           onFocus={onFocusDescription}
@@ -164,10 +164,10 @@ export function PlaylistCreationForm(props) {
 
       <div className="playlist-form-actions">
         <button className="cancel-btn" onClick={onCancelPlaylistCreation}>
-          CANCEL
+          {translateString('CANCEL')}
         </button>
         <button className="create-btn" onClick={onClickPlaylistCreate}>
-          {id ? 'UPDATE' : 'CREATE'}
+          {id ? translateString('UPDATE') : translateString('CREATE')}
         </button>
       </div>
     </div>

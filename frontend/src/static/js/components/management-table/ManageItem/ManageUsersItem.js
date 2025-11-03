@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { usePopup, useUser } from '../../../utils/hooks/';
 import { PageStore } from '../../../utils/stores/';
-import { csrfToken } from '../../../utils/helpers/';
+import { csrfToken, translateString } from '../../../utils/helpers/';
 import { PopupMain } from '../../_shared';
 import { MaterialIcon } from '../../_shared/material-icon/MaterialIcon.jsx';
 import { ManageItemDate } from './ManageMediaItem';
@@ -20,7 +20,7 @@ function ManageItemName(props) {
     return props.name;
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 function ManageItemUsername(props) {
@@ -36,7 +36,7 @@ function ManageItemUsername(props) {
     return props.username;
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 function ManageUsersItemActions(props) {
@@ -79,11 +79,14 @@ function ManageUsersItemActions(props) {
           return res.json();
         }
         return res.json().then((data) => {
-          throw new Error(data.detail || 'Failed to change password.');
+          throw new Error(data.detail || translateString('Failed to change password.'));
         });
       })
       .then(() => {
-        sessionStorage.setItem('user-management-message', JSON.stringify({ type: 'success', text: 'Password changed successfully.' }));
+        sessionStorage.setItem(
+          'user-management-message',
+          JSON.stringify({ type: 'success', text: translateString('Password changed successfully.') })
+        );
         window.location.reload();
       })
       .catch((err) => {
@@ -106,11 +109,14 @@ function ManageUsersItemActions(props) {
           return res.json();
         }
         return res.json().then((data) => {
-          throw new Error(data.detail || 'Failed to approve user.');
+          throw new Error(data.detail || translateString('Failed to approve user.'));
         });
       })
       .then(() => {
-        sessionStorage.setItem('user-management-message', JSON.stringify({ type: 'success', text: 'User approved successfully.' }));
+        sessionStorage.setItem(
+          'user-management-message',
+          JSON.stringify({ type: 'success', text: translateString('User approved successfully.') })
+        );
         window.location.reload();
       })
       .catch((err) => {
@@ -167,19 +173,19 @@ function ManageUsersItemActions(props) {
   return (
     <div ref={props.containerRef} className="actions">
       <PasswordPopupTrigger contentRef={passwordPopupRef}>
-        <button>Change password</button>
+        <button>{translateString('Change password')}</button>
       </PasswordPopupTrigger>
       {userCan.usersNeedsToBeApproved && !props.is_approved && (
         <>
           <span className="seperator">|</span>
           <ApprovePopupTrigger contentRef={approvePopupRef}>
-            <button>Approve</button>
+            <button>{translateString('Approve')}</button>
           </ApprovePopupTrigger>
         </>
       )}
       <span className="seperator">|</span>
       <DeletePopupTrigger contentRef={deletePopupRef}>
-        <button title={'Delete "' + props.name + '"'}>Delete</button>
+        <button title={translateString('Delete') + ' "' + props.name + '"'}>{translateString('Delete')}</button>
       </DeletePopupTrigger>
 
       <PasswordPopupContent
@@ -193,13 +199,15 @@ function ManageUsersItemActions(props) {
         <PopupMain>
           <form onSubmit={handlePasswordChangeSubmit}>
             <div className="popup-message">
-              <span className="popup-message-title">Change Password for {props.name}</span>
+              <span className="popup-message-title">
+                {translateString('Change password for') + ' ' + props.name}
+              </span>
               <span className="popup-message-main">
                 <input
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="New Password"
+                  placeholder={translateString('New password')}
                   required
                   style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
                 />
@@ -212,10 +220,10 @@ function ManageUsersItemActions(props) {
                 className="button-link cancel-profile-removal"
                 onClick={() => passwordPopupRef.current.tryToHide()}
               >
-                CANCEL
+                {translateString('CANCEL')}
               </button>
               <button type="submit" className="button-link proceed-profile-removal">
-                SUBMIT
+                {translateString('SUBMIT')}
               </button>
             </span>
           </form>
@@ -232,18 +240,18 @@ function ManageUsersItemActions(props) {
       >
         <PopupMain>
           <div className="popup-message">
-            <span className="popup-message-title">Approve User</span>
+            <span className="popup-message-title">{translateString('Approve user')}</span>
             <span className="popup-message-main">
-              {'Are you sure you want to approve "' + props.name + '"?'}
+              {translateString('Are you sure you want to approve')} "{props.name}"?
             </span>
           </div>
           <hr />
           <span className="popup-message-bottom">
             <button className="button-link cancel-profile-removal" onClick={() => approvePopupRef.current.tryToHide()}>
-              CANCEL
+              {translateString('CANCEL')}
             </button>
             <button className="button-link proceed-profile-removal" onClick={handleApproveUser}>
-              PROCEED
+              {translateString('PROCEED')}
             </button>
           </span>
         </PopupMain>
@@ -256,16 +264,18 @@ function ManageUsersItemActions(props) {
       >
         <PopupMain>
           <div className="popup-message">
-            <span className="popup-message-title">Member removal</span>
-            <span className="popup-message-main">{'You\'re willing to remove member "' + props.name + '"'}?</span>
+            <span className="popup-message-title">{translateString('Member removal')}</span>
+            <span className="popup-message-main">
+              {translateString("You're willing to remove member") + ' "' + props.name + '"?'}
+            </span>
           </div>
           <hr />
           <span className="popup-message-bottom">
             <button className="button-link cancel-profile-removal" onClick={onCancelDelete}>
-              CANCEL
+              {translateString('CANCEL')}
             </button>
             <button className="button-link proceed-profile-removal" onClick={onProceedDelete}>
-              PROCEED
+              {translateString('PROCEED')}
             </button>
           </span>
         </PopupMain>
@@ -325,7 +335,7 @@ export function ManageUsersItem(props) {
       {props.has_roles ? (
         <div className="mi-role">
           {void 0 === props.roles ? (
-            <i className="non-available">N/A</i>
+            <i className="non-available">{translateString('N/A')}</i>
           ) : props.roles.length ? (
             props.roles.join('\n')
           ) : (
@@ -336,7 +346,7 @@ export function ManageUsersItem(props) {
       {props.has_verified ? (
         <div className="mi-verified">
           {void 0 === props.is_verified ? (
-            <i className="non-available">N/A</i>
+            <i className="non-available">{translateString('N/A')}</i>
           ) : props.is_verified ? (
             <MaterialIcon type="check_circle" />
           ) : (
@@ -347,7 +357,7 @@ export function ManageUsersItem(props) {
       {props.has_trusted ? (
         <div className="mi-trusted">
           {void 0 === props.is_trusted ? (
-            <i className="non-available">N/A</i>
+            <i className="non-available">{translateString('N/A')}</i>
           ) : props.is_trusted ? (
             <MaterialIcon type="check_circle" />
           ) : (
@@ -358,7 +368,7 @@ export function ManageUsersItem(props) {
       {props.has_approved ? (
         <div className="mi-approved">
           {void 0 === props.is_approved || props.is_approved === null ? (
-            <i className="non-available">N/A</i>
+            <i className="non-available">{translateString('N/A')}</i>
           ) : props.is_approved ? (
             <MaterialIcon type="check_circle" />
           ) : (
@@ -368,7 +378,7 @@ export function ManageUsersItem(props) {
       ) : null}
       <div className="mi-featured">
         {void 0 === props.is_featured ? (
-          <i className="non-available">N/A</i>
+          <i className="non-available">{translateString('N/A')}</i>
         ) : props.is_featured ? (
           <MaterialIcon type="check_circle" />
         ) : (

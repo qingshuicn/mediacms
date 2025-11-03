@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextsContext } from '../../utils/contexts/';
 import { MediaPageStore } from '../../utils/stores/';
-import { formatViewsNumber } from '../../utils/helpers/';
+import { formatViewsNumber, translateString } from '../../utils/helpers/';
 import { PageActions, MediaPageActions } from '../../utils/actions/';
 import { CircleIconButton, MaterialIcon } from '../_shared/';
 
@@ -25,7 +25,7 @@ export function MediaLikeIcon() {
   }
 
   function onFailMediaLikeRequest() {
-    PageActions.addNotification('Action failed', 'likedMediaRequestFail');
+    PageActions.addNotification(translateString('Action failed'), 'likedMediaRequestFail');
   }
 
   function toggleLike(ev) {

@@ -2,44 +2,45 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { PageStore } from '../../utils/stores/';
 import { FilterOptions } from '../_shared';
+import { translateString } from '../../utils/helpers/';
 
 import './ManageItemList-filters.scss';
 
 // Get categories from window if available
-const categories = window.CATEGORIES ? 
-  [{ id: 'all', title: 'All' }].concat(window.CATEGORIES.map(cat => ({ id: cat, title: cat }))) : 
-  [{ id: 'all', title: 'All' }];
+const categories = window.CATEGORIES
+  ? [{ id: 'all', title: translateString('All') }].concat(window.CATEGORIES.map((cat) => ({ id: cat, title: cat })))
+  : [{ id: 'all', title: translateString('All') }];
 
 const filters = {
   state: [
-    { id: 'all', title: 'All' },
-    { id: 'public', title: 'Public' },
-    { id: 'private', title: 'Private' },
-    { id: 'unlisted', title: 'Unlisted' },
+    { id: 'all', title: translateString('All') },
+    { id: 'public', title: translateString('Public') },
+    { id: 'private', title: translateString('Private') },
+    { id: 'unlisted', title: translateString('Unlisted') },
   ],
   media_type: [
-    { id: 'all', title: 'All' },
-    { id: 'video', title: 'Video' },
-    { id: 'audio', title: 'Audio' },
-    { id: 'image', title: 'Image' },
-    { id: 'pdf', title: 'Pdf' },
+    { id: 'all', title: translateString('All') },
+    { id: 'video', title: translateString('Video') },
+    { id: 'audio', title: translateString('Audio') },
+    { id: 'image', title: translateString('Image') },
+    { id: 'pdf', title: translateString('PDF') },
   ],
   encoding_status: [
-    { id: 'all', title: 'All' },
-    { id: 'success', title: 'Success' },
-    { id: 'running', title: 'Running' },
-    { id: 'pending', title: 'Pending' },
-    { id: 'fail', title: 'Fail' },
+    { id: 'all', title: translateString('All') },
+    { id: 'success', title: translateString('Success') },
+    { id: 'running', title: translateString('Running') },
+    { id: 'pending', title: translateString('Pending') },
+    { id: 'fail', title: translateString('Fail') },
   ],
   reviewed: [
-    { id: 'all', title: 'All' },
-    { id: 'true', title: 'Yes' },
-    { id: 'false', title: 'No' },
+    { id: 'all', title: translateString('All') },
+    { id: 'true', title: translateString('Yes') },
+    { id: 'false', title: translateString('No') },
   ],
   featured: [
-    { id: 'all', title: 'All' },
-    { id: 'true', title: 'Yes' },
-    { id: 'false', title: 'No' },
+    { id: 'all', title: translateString('All') },
+    { id: 'true', title: translateString('Yes') },
+    { id: 'false', title: translateString('No') },
   ],
 };
 
@@ -120,14 +121,14 @@ export function ManageMediaFilters(props) {
     <div ref={containerRef} className={'mi-filters-row' + (isHidden ? ' hidden' : '')}>
       <div ref={innerContainerRef} className="mi-filters-row-inner">
         <div className="mi-filter">
-          <div className="mi-filter-title">STATE</div>
+          <div className="mi-filter-title">{translateString('STATE')}</div>
           <div className="mi-filter-options">
             <FilterOptions id={'state'} options={filters.state} selected={state} onSelect={onFilterSelect} />
           </div>
         </div>
 
         <div className="mi-filter">
-          <div className="mi-filter-title">MEDIA TYPE</div>
+          <div className="mi-filter-title">{translateString('MEDIA TYPE')}</div>
           <div className="mi-filter-options">
             <FilterOptions
               id={'media_type'}
@@ -139,7 +140,7 @@ export function ManageMediaFilters(props) {
         </div>
 
         <div className="mi-filter">
-          <div className="mi-filter-title">ENCODING STATUS</div>
+          <div className="mi-filter-title">{translateString('ENCODING STATUS')}</div>
           <div className="mi-filter-options">
             <FilterOptions
               id={'encoding_status'}
@@ -151,21 +152,21 @@ export function ManageMediaFilters(props) {
         </div>
 
         <div className="mi-filter">
-          <div className="mi-filter-title">REVIEWED</div>
+          <div className="mi-filter-title">{translateString('REVIEWED')}</div>
           <div className="mi-filter-options">
             <FilterOptions id={'reviewed'} options={filters.reviewed} selected={isReviewed} onSelect={onFilterSelect} />
           </div>
         </div>
 
         <div className="mi-filter">
-          <div className="mi-filter-title">FEATURED</div>
+          <div className="mi-filter-title">{translateString('FEATURED')}</div>
           <div className="mi-filter-options">
             <FilterOptions id={'featured'} options={filters.featured} selected={isFeatured} onSelect={onFilterSelect} />
           </div>
         </div>
 
         <div className="mi-filter">
-          <div className="mi-filter-title">CATEGORY</div>
+          <div className="mi-filter-title">{translateString('CATEGORY')}</div>
           <div className="mi-filter-options">
             <FilterOptions id={'category'} options={categories} selected={category} onSelect={onFilterSelect} />
           </div>

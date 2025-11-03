@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { putRequest, csrfToken } from '../../utils/helpers/';
+import { putRequest, csrfToken, translateString } from '../../utils/helpers/';
 import { usePopup } from '../../utils/hooks/';
 import { PageStore } from '../../utils/stores/';
 import { PageActions, PlaylistPageActions } from '../../utils/actions/';
@@ -10,7 +10,7 @@ function mediaPlaylistPopupPages(proceedRemoval, cancelRemoval) {
   const settingOptionsList = {
     deleteMedia: {
       itemType: 'open-subpage',
-      text: 'Remove from playlist',
+      text: translateString('Remove from playlist'),
       icon: 'delete',
       buttonAttr: {
         className: 'change-page',
@@ -28,16 +28,18 @@ function mediaPlaylistPopupPages(proceedRemoval, cancelRemoval) {
     proceedMediaPlaylistRemoval: (
       <PopupMain>
         <div className="popup-message">
-          <span className="popup-message-title">Media playlist removal</span>
-          <span className="popup-message-main">You're willing to remove media from playlist permanently?</span>
+          <span className="popup-message-title">{translateString('Media playlist removal')}</span>
+          <span className="popup-message-main">
+            {translateString("You're willing to remove media from playlist permanently?")}
+          </span>
         </div>
         <hr />
         <span className="popup-message-bottom">
           <button className="button-link cancel-playlist-removal" onClick={cancelRemoval}>
-            CANCEL
+            {translateString('CANCEL')}
           </button>
           <button className="button-link proceed-playlist-removal" onClick={proceedRemoval}>
-            PROCEED
+            {translateString('PROCEED')}
           </button>
         </span>
       </PopupMain>
@@ -60,7 +62,7 @@ export function MediaPlaylistOptions(props) {
     const props_playlist_id = props.playlist_id;
     setTimeout(function () {
       // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-      PageActions.addNotification('Media removed from playlist', 'mediaPlaylistRemove');
+      PageActions.addNotification(translateString('Media removed from playlist'), 'mediaPlaylistRemove');
       PlaylistPageActions.removedMediaFromPlaylist(props_media_id, props_playlist_id);
     }, 100);
   }
@@ -69,7 +71,7 @@ export function MediaPlaylistOptions(props) {
     popupContentRef.current.tryToHide();
     setTimeout(function () {
       // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
-      PageActions.addNotification('Media removal from playlist failed', 'mediaPlaylistRemoveFail');
+      PageActions.addNotification(translateString('Media removal from playlist failed'), 'mediaPlaylistRemoveFail');
     }, 100);
   }
 

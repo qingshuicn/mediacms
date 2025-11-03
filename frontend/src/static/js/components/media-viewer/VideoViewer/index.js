@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { VideoViewerActions } from '../../../utils/actions/';
 import { SiteContext, SiteConsumer } from '../../../utils/contexts/';
 import { PageStore, MediaPageStore, VideoViewerStore } from '../../../utils/stores/';
-import { addClassname, removeClassname, formatInnerLink } from '../../../utils/helpers/';
+import { addClassname, removeClassname, formatInnerLink, translateString } from '../../../utils/helpers/';
 import { BrowserCache, UpNextLoaderView, MediaDurationInfo } from '../../../utils/classes/';
 import {
     orderedSupportedVideoFormats,
@@ -19,16 +19,16 @@ function filterVideoEncoding(encoding_status) {
             MediaPageStore.set('media-load-error-type', 'encodingRunning');
             MediaPageStore.set(
                 'media-load-error-message',
-                'Media encoding is currently running. Try again in few minutes.'
+                translateString('Media encoding is currently running. Try again in few minutes.')
             );
             break;
         case 'pending_X':
             MediaPageStore.set('media-load-error-type', 'encodingPending');
-            MediaPageStore.set('media-load-error-message', 'Media encoding is pending');
+            MediaPageStore.set('media-load-error-message', translateString('Media encoding is pending'));
             break;
         case 'fail':
             MediaPageStore.set('media-load-error-type', 'encodingFailed');
-            MediaPageStore.set('media-load-error-message', 'Media encoding failed');
+            MediaPageStore.set('media-load-error-message', translateString('Media encoding failed'));
             break;
     }
 }
@@ -122,7 +122,7 @@ export default class VideoViewer extends React.PureComponent {
                 MediaPageStore.set('media-load-error-type', 'encodingRunning');
                 MediaPageStore.set(
                     'media-load-error-message',
-                    'Media encoding is currently running. Try again in few minutes.'
+                    translateString('Media encoding is currently running. Try again in few minutes.')
                 );
                 return;
             }
@@ -206,20 +206,18 @@ export default class VideoViewer extends React.PureComponent {
 
             const mediaUrl = MediaPageStore.get('media-url');
 
-            let bottomRightHTML =
-                '<button class="share-video-btn"><i class="material-icons">share</i><span>Share</span></button>';
-            bottomRightHTML +=
-                '<div class="share-options-wrapper">\
-									<div class="share-options">\
-										<div class="share-options-inner">\
-											<div class="sh-option share-email">\
-												<a href="mailto:?body=' +
-                mediaUrl +
-                '" title=""><span><i class="material-icons">email</i></span><span>Email1</span></a>\
-											</div></div>\
-									</div>\
-								</div>';
-
+            const shareLabel = translateString('Share');
+            const emailLabel = translateString('Email');
+            let bottomRightHTML = `<button class="share-video-btn"><i class="material-icons">share</i><span>${shareLabel}</span></button>`;
+            bottomRightHTML += `<div class="share-options-wrapper">
+                <div class="share-options">
+                    <div class="share-options-inner">
+                        <div class="sh-option share-email">
+                            <a href="mailto:?body=${mediaUrl}" title=""><span><i class="material-icons">email</i></span><span>${emailLabel}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
             this.cornerLayers = {
                 topLeft: topLeftHtml,
                 topRight: this.upNextLoaderView ? this.upNextLoaderView.html() : null,

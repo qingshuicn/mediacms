@@ -5,6 +5,7 @@ import { PageActions } from '../utils/actions/';
 import { MediaListWrapper } from '../components/MediaListWrapper';
 import { ManageItemList } from '../components/management-table/ManageItemList/ManageItemList';
 import { Page } from './_Page';
+import { translateString } from '../utils/helpers/';
 
 function genReqUrl(url, sort, page) {
   const ret = url + '?' + sort + ('' === sort ? '' : '&') + 'page=' + page;
@@ -64,9 +65,9 @@ export class ManageCommentsPage extends Page {
       },
       function () {
         if (multipleItems) {
-          PageActions.addNotification('The comments deleted successfully.', 'commentsRemovalSucceed');
+          PageActions.addNotification(translateString('The comments deleted successfully.'), 'commentsRemovalSucceed');
         } else {
-          PageActions.addNotification('The comment deleted successfully.', 'commentRemovalSucceed');
+          PageActions.addNotification(translateString('The comment deleted successfully.'), 'commentRemovalSucceed');
         }
       }
     );
@@ -74,9 +75,15 @@ export class ManageCommentsPage extends Page {
 
   onItemsRemovalFail(multipleItems) {
     if (multipleItems) {
-      PageActions.addNotification('The comments removal failed. Please try again.', 'commentsRemovalFailed');
+      PageActions.addNotification(
+        translateString('The comments removal failed. Please try again.'),
+        'commentsRemovalFailed'
+      );
     } else {
-      PageActions.addNotification('The comment removal failed. Please try again.', 'commentRemovalFailed');
+      PageActions.addNotification(
+        translateString('The comment removal failed. Please try again.'),
+        'commentRemovalFailed'
+      );
     }
   }
 
@@ -109,5 +116,5 @@ ManageCommentsPage.propTypes = {
 };
 
 ManageCommentsPage.defaultProps = {
-  title: 'Manage comments',
+  title: translateString('Manage comments'),
 };

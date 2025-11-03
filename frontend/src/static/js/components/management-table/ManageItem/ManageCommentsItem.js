@@ -4,6 +4,7 @@ import { usePopup } from '../../../utils/hooks/';
 import { PageStore } from '../../../utils/stores/';
 import { PopupMain } from '../../_shared';
 import { ManageItemDate } from './ManageMediaItem';
+import { translateString } from '../../../utils/helpers/';
 
 function ManageItemCommentAuthor(props) {
   if (void 0 !== props.name && void 0 !== props.url) {
@@ -22,7 +23,7 @@ function ManageItemCommentAuthor(props) {
     return props.url;
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 function ManageItemCommentActions(props) {
@@ -100,28 +101,30 @@ function ManageItemCommentActions(props) {
     <div ref={props.containerRef} className="actions">
       {void 0 === props.media_url ? null : (
         <span>
-          <a href={props.media_url}>View media</a>
+          <a href={props.media_url}>{translateString('View media')}</a>
         </span>
       )}
       {void 0 === props.media_url || props.hideDeleteAction ? null : <span className="seperator">|</span>}
 
       <PopupTrigger contentRef={popupContentRef}>
-        <button title="Delete comment">Delete</button>
+        <button title={translateString('Delete comment')}>{translateString('Delete')}</button>
       </PopupTrigger>
 
       <PopupContent contentRef={popupContentRef} showCallback={onPopupShow} hideCallback={onPopupHide}>
         <PopupMain>
           <div className="popup-message">
-            <span className="popup-message-title">Comment removal</span>
-            <span className="popup-message-main">You're willing to remove comment?</span>
+            <span className="popup-message-title">{translateString('Comment removal')}</span>
+            <span className="popup-message-main">
+              {translateString("You're willing to remove comment?")}
+            </span>
           </div>
           <hr />
           <span className="popup-message-bottom">
             <button className="button-link cancel-profile-removal" onClick={onCancel}>
-              CANCEL
+              {translateString('CANCEL')}
             </button>
             <button className="button-link proceed-profile-removal" onClick={onProceed}>
-              PROCEED
+              {translateString('PROCEED')}
             </button>
           </span>
         </PopupMain>
@@ -164,7 +167,7 @@ export function ManageCommentsItem(props) {
         <ManageItemCommentAuthor name={props.author_name} url={props.author_url} />
       </div>
       <div className="mi-comment">
-        {void 0 === props.text ? <i className="non-available">N/A</i> : props.text}
+        {void 0 === props.text ? <i className="non-available">{translateString('N/A')}</i> : props.text}
         {void 0 === props.text || (void 0 === props.media_url && props.hideDeleteAction) ? null : (
           <ManageItemCommentActions
             containerRef={actionsContainerRef}

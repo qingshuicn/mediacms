@@ -367,7 +367,9 @@ function displayCommentsRelatedAlert() {
         missingCommentariesUnlistedMsgElem.setAttribute('role', 'alert');
         missingCommentariesUnlistedMsgElem.setAttribute('class', 'alert info alert-dismissible no-comment');
         missingCommentariesUnlistedMsgElem.innerHTML =
-          '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>' +
+          '<button type="button" class="close" data-dismiss="alert" aria-label="' +
+          translateString('Close') +
+          '"><span aria-hidden="true">×</span></button>' +
           postUploadMessage;
 
         if (pageMainEl.firstChild) {

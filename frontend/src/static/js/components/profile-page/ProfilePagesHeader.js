@@ -162,8 +162,8 @@ class ProfileSearchBar extends React.PureComponent {
             ref="SearchInput"
             type="text"
             name="aq"
-            placeholder="Search"
-            aria-label="Search"
+            placeholder={translateString('Search')}
+            aria-label={translateString('Search')}
             value={this.state.queryVal}
             onChange={this.onChange}
             onFocus={this.onInputFocus}
@@ -375,8 +375,8 @@ function AddBannerButton(props) {
     link = '/edit-channel.html';
   }
   return (
-    <a href={link} className="edit-channel" title="Add banner">
-      ADD BANNER
+    <a href={link} className="edit-channel" title={translateString('Add banner')}>
+      {translateString('ADD BANNER')}
     </a>
   );
 }
@@ -388,8 +388,8 @@ function EditBannerButton(props) {
     link = '/edit-channel.html';
   }
   return (
-    <a href={link} className="edit-channel" title="Edit banner">
-      EDIT BANNER
+    <a href={link} className="edit-channel" title={translateString('Edit banner')}>
+      {translateString('EDIT BANNER')}
     </a>
   );
 }
@@ -402,8 +402,8 @@ function EditProfileButton(props) {
   }
 
   return (
-    <a href={link} className="edit-profile" title="Edit profile">
-      EDIT PROFILE
+    <a href={link} className="edit-profile" title={translateString('Edit profile')}>
+      {translateString('EDIT PROFILE')}
     </a>
   );
 }
@@ -455,7 +455,7 @@ export default function ProfilePagesHeader(props) {
   function onProfileDelete(username) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Profile removed. Redirecting...', 'profileDelete');
+      PageActions.addNotification(translateString('Profile removed. Redirecting...'), 'profileDelete');
       setTimeout(function () {
         window.location.href = SiteContext._currentValue.url;
       }, 2000);
@@ -469,7 +469,7 @@ export default function ProfilePagesHeader(props) {
   function onProfileDeleteFail(username) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Profile removal failed', 'profileDeleteFail');
+      PageActions.addNotification(translateString('Profile removal failed'), 'profileDeleteFail');
     }, 100);
 
     if (void 0 !== username) {
@@ -532,23 +532,25 @@ export default function ProfilePagesHeader(props) {
           <span className="delete-profile-wrap">
             <PopupTrigger contentRef={popupContentRef}>
               <button className="delete-profile" title="">
-                REMOVE PROFILE
+                {translateString('REMOVE PROFILE')}
               </button>
             </PopupTrigger>
 
             <PopupContent contentRef={popupContentRef}>
               <PopupMain>
                 <div className="popup-message">
-                  <span className="popup-message-title">Profile removal</span>
-                  <span className="popup-message-main">You're willing to remove profile permanently?</span>
+                  <span className="popup-message-title">{translateString('Profile removal')}</span>
+                  <span className="popup-message-main">
+                    {translateString("You're willing to remove profile permanently?")}
+                  </span>
                 </div>
                 <hr />
                 <span className="popup-message-bottom">
                   <button className="button-link cancel-profile-removal" onClick={cancelProfileRemoval}>
-                    CANCEL
+                    {translateString('CANCEL')}
                   </button>
                   <button className="button-link proceed-profile-removal" onClick={proceedMediaRemoval}>
-                    PROCEED
+                    {translateString('PROCEED')}
                   </button>
                 </span>
               </PopupMain>

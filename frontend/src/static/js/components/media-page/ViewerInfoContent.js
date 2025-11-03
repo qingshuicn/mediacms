@@ -122,7 +122,7 @@ export default function ViewerInfoContent(props) {
   function onMediaDelete(mediaId) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Media removed. Redirecting...', 'mediaDelete');
+      PageActions.addNotification(translateString('Media removed. Redirecting...'), 'mediaDelete');
       setTimeout(function () {
         window.location.href =
           SiteContext._currentValue.url + '/' + MediaPageStore.get('media-data').author_profile.replace(/^\//g, '');
@@ -137,7 +137,7 @@ export default function ViewerInfoContent(props) {
   function onMediaDeleteFail(mediaId) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Media removal failed', 'mediaDeleteFail');
+      PageActions.addNotification(translateString('Media removal failed'), 'mediaDeleteFail');
     }, 100);
 
     if (void 0 !== mediaId) {
@@ -228,16 +228,18 @@ export default function ViewerInfoContent(props) {
               <PopupContent contentRef={popupContentRef}>
                 <PopupMain>
                   <div className="popup-message">
-                    <span className="popup-message-title">Media removal</span>
-                    <span className="popup-message-main">You're willing to remove media permanently?</span>
+                    <span className="popup-message-title">{translateString('Media removal')}</span>
+                    <span className="popup-message-main">
+                      {translateString("You're willing to remove media permanently?")}
+                    </span>
                   </div>
                   <hr />
                   <span className="popup-message-bottom">
                     <button className="button-link cancel-comment-removal" onClick={cancelMediaRemoval}>
-                      CANCEL
+                    {translateString('CANCEL')}
                     </button>
                     <button className="button-link proceed-comment-removal" onClick={proceedMediaRemoval}>
-                      PROCEED
+                    {translateString('PROCEED')}
                     </button>
                   </span>
                 </PopupMain>

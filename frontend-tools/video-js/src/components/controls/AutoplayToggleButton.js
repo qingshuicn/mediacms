@@ -1,5 +1,6 @@
 import videojs from 'video.js';
 import PlayerConfig from '../../config/playerConfig';
+import { translateString } from '../../utils/translation';
 import './AutoplayToggleButton.css';
 
 const Button = videojs.getComponent('Button');
@@ -42,11 +43,17 @@ class AutoplayToggleButton extends Button {
     }
 
     createEl() {
+        const autoplayOnLabel = translateString('Autoplay is on');
+        const autoplayOffLabel = translateString('Autoplay is off');
+        const autoplayState = this.isAutoplayEnabled ? 'on' : 'off';
+        const ariaLabel = autoplayState === 'on' ? autoplayOnLabel : autoplayOffLabel;
+
         const button = super.createEl('button', {
             className: 'vjs-autoplay-toggle vjs-control vjs-button',
             type: 'button',
-            'aria-label': this.isAutoplayEnabled ? 'Autoplay is on' : 'Autoplay is off',
+            'aria-label': ariaLabel,
         });
+        button.dataset.autoplayState = autoplayState;
 
         // Create icon placeholder using VideoJS icon system
         this.iconSpan = videojs.dom.createEl('span', {
@@ -61,7 +68,7 @@ class AutoplayToggleButton extends Button {
         const controlTextSpan = videojs.dom.createEl('span', {
             className: 'vjs-control-text',
         });
-        controlTextSpan.textContent = this.isAutoplayEnabled ? 'Autoplay is on' : 'Autoplay is off';
+        controlTextSpan.textContent = ariaLabel;
 
         // Append both spans to button
         button.appendChild(this.iconSpan);
@@ -120,11 +127,21 @@ class AutoplayToggleButton extends Button {
         setTimeout(() => {
             this.updateIconClass();
 
-            if (this.el()) {
-                this.el().setAttribute('aria-label', this.isAutoplayEnabled ? 'Autoplay is on' : 'Autoplay is off');
-                const controlText = this.el().querySelector('.vjs-control-text');
-                if (controlText)
-                    controlText.textContent = this.isAutoplayEnabled ? 'Autoplay is on' : 'Autoplay is off';
+            const buttonEl = this.el();
+            if (buttonEl) {
+                const autoplayState = this.isAutoplayEnabled ? 'on' : 'off';
+                const ariaLabel =
+                    autoplayState === 'on'
+                        ? translateString('Autoplay is on')
+                        : translateString('Autoplay is off');
+
+                buttonEl.setAttribute('aria-label', ariaLabel);
+                buttonEl.dataset.autoplayState = autoplayState;
+
+                const controlText = buttonEl.querySelector('.vjs-control-text');
+                if (controlText) {
+                    controlText.textContent = ariaLabel;
+                }
             }
 
             // Fade back in

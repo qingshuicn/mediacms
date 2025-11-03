@@ -24,6 +24,7 @@ import { OrientationHandler } from '../../utils/OrientationHandler';
 import { EndScreenHandler } from '../../utils/EndScreenHandler';
 import KeyboardHandler from '../../utils/KeyboardHandler';
 import PlaybackEventHandler from '../../utils/PlaybackEventHandler';
+import { translateString } from '../../utils/translation';
 
 // Import sample media data
 import sampleMediaData from '../../assets/sample-media-file.json';
@@ -38,32 +39,40 @@ const enableStandardButtonTooltips = (player) => {
         const controlBar = player.getChild('controlBar');
         if (!controlBar) return;
 
+        const t = translateString;
+
         // Define tooltip mappings for standard VideoJS buttons
         const buttonTooltips = {
-            playToggle: () => (player.paused() ? 'Play' : 'Pause'),
-            // muteToggle: () => (player.muted() ? 'Unmute' : 'Mute'), // Removed - no tooltip for mute/volume
-            // volumePanel: 'Volume', // Removed - no tooltip for volume
-            fullscreenToggle: () => (player.isFullscreen() ? 'Exit fullscreen' : 'Fullscreen'),
-            pictureInPictureToggle: 'Picture-in-picture',
+            playToggle: () => (player.paused() ? t('Play') : t('Pause')),
+            // muteToggle: () => (player.muted() ? t('Unmute') : t('Mute')), // Removed - no tooltip for mute/volume
+            // volumePanel: t('Volume'), // Removed - no tooltip for volume
+            fullscreenToggle: () => (player.isFullscreen() ? t('Exit fullscreen') : t('Fullscreen')),
+            pictureInPictureToggle: t('Picture-in-picture'),
             subtitlesButton: '',
-            captionsButton: 'Captions',
+            captionsButton: t('Captions'),
             subsCapsButton: '',
-            chaptersButton: 'Chapters',
-            audioTrackButton: 'Audio tracks',
-            playbackRateMenuButton: 'Playback speed',
-            // currentTimeDisplay: 'Current time', // Removed - no tooltip for time
-            // durationDisplay: 'Duration', // Removed - no tooltip for duration
+            chaptersButton: t('Chapters'),
+            audioTrackButton: t('Audio tracks'),
+            playbackRateMenuButton: t('Playback speed'),
+            // currentTimeDisplay: t('Current time'), // Removed - no tooltip for time
+            // durationDisplay: t('Duration'), // Removed - no tooltip for duration
         };
 
         // Define tooltip mappings for custom buttons (by CSS class)
         const customButtonTooltips = {
-            'vjs-next-video-button': 'Next Video',
+            'vjs-next-video-button': t('Next Video'),
             'vjs-autoplay-toggle': (el) => {
-                // Check if autoplay is enabled by looking at the aria-label
+                const state = el.dataset.autoplayState || '';
+                if (state === 'on') {
+                    return t('Autoplay is on');
+                }
+                if (state === 'off') {
+                    return t('Autoplay is off');
+                }
                 const ariaLabel = el.getAttribute('aria-label') || '';
-                return ariaLabel.includes('on') ? 'Autoplay is on' : 'Autoplay is off';
+                return ariaLabel.includes('on') ? t('Autoplay is on') : t('Autoplay is off');
             },
-            'vjs-settings-button': 'Settings',
+            'vjs-settings-button': t('Settings'),
         };
 
         // Apply tooltips to each button
@@ -87,16 +96,18 @@ const enableStandardButtonTooltips = (player) => {
                 // For dynamic tooltips (play/pause, fullscreen), update on state change
                 if (buttonName === 'playToggle') {
                     player.on('play', () => {
-                        buttonEl.setAttribute('title', 'Pause');
-                        buttonEl.setAttribute('aria-label', 'Pause');
+                        const pauseLabel = t('Pause');
+                        buttonEl.setAttribute('title', pauseLabel);
+                        buttonEl.setAttribute('aria-label', pauseLabel);
                     });
                     player.on('pause', () => {
-                        buttonEl.setAttribute('title', 'Play');
-                        buttonEl.setAttribute('aria-label', 'Play');
+                        const playLabel = t('Play');
+                        buttonEl.setAttribute('title', playLabel);
+                        buttonEl.setAttribute('aria-label', playLabel);
                     });
                 } else if (buttonName === 'fullscreenToggle') {
                     player.on('fullscreenchange', () => {
-                        const tooltip = player.isFullscreen() ? 'Exit fullscreen' : 'Fullscreen';
+                        const tooltip = player.isFullscreen() ? t('Exit fullscreen') : t('Fullscreen');
                         buttonEl.setAttribute('title', tooltip);
                         buttonEl.setAttribute('aria-label', tooltip);
                     });
@@ -115,7 +126,6 @@ const enableStandardButtonTooltips = (player) => {
 
                 // Skip empty tooltips
                 if (!tooltipText || tooltipText.trim() === '') {
-                    console.log('Empty tooltip for custom button:', className, tooltipText);
                     return;
                 }
 

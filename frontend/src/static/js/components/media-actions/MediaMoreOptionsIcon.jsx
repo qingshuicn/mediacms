@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { formatInnerLink } from '../../utils/helpers/';
+import { formatInnerLink, translateString } from '../../utils/helpers/';
 import { usePopup, useUser } from '../../utils/hooks/';
 import { SiteContext } from '../../utils/contexts/';
 import { PageActions, MediaPageActions } from '../../utils/actions/';
@@ -39,7 +39,7 @@ function downloadOptions(mediaData, allowDownload) {
   }
 
   options.original_media_url = {
-    text: 'Original file (' + mediaData.size + ')',
+    text: translateString('Original file') + ' (' + mediaData.size + ')',
     link: formatInnerLink(mediaData.original_media_url, site.url),
     linkAttr: {
       target: '_blank',
@@ -64,7 +64,7 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
         items.push({
           itemType: 'link',
           link: downloadLink,
-          text: 'Download',
+          text: translateString('Download'),
           icon: 'arrow_downward',
           itemAttr: {
             className: 'visible-only-in-small',
@@ -78,7 +78,7 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
     } else {
       items.push({
         itemType: 'open-subpage',
-        text: 'Download',
+        text: translateString('Download'),
         icon: 'arrow_downward',
         itemAttr: {
           className: 'visible-only-in-small',
@@ -94,7 +94,7 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
   if (mediaIsVideo && userCan.editMedia) {
     items.push({
       itemType: 'open-subpage',
-      text: 'Status info',
+      text: translateString('Status info'),
       icon: 'info',
       buttonAttr: {
         className: 'change-page',
@@ -107,7 +107,7 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
     if (mediaReported) {
       items.push({
         itemType: 'div',
-        text: 'Reported',
+        text: translateString('Reported'),
         icon: 'flag',
         divAttr: {
           className: 'reported-label loggedin-media-reported',
@@ -116,7 +116,7 @@ function optionsItems(userCan, mediaData, allowDownload, downloadLink, mediaRepo
     } else {
       items.push({
         itemType: 'open-subpage',
-        text: 'Report',
+        text: translateString('Report'),
         icon: 'flag',
         buttonAttr: {
           className: 'change-page' + (mediaReportedTimes ? ' loggedin-media-reported' : ''),
@@ -133,8 +133,8 @@ function getPopupPages(userCan, mediaData, allowDownload, downloadLink, mediaRep
 
   const mediaUrl = mediaData.url;
   const mediaType = mediaData.media_type;
-  const mediaState = mediaData.state || 'N/A';
-  const mediaEncodingStatus = mediaData.encoding_status || 'N/A';
+  const mediaState = mediaData.state || translateString('N/A');
+  const mediaEncodingStatus = mediaData.encoding_status || translateString('N/A');
   const mediaReportedTimes = mediaData.reported_times;
   const mediaIsReviewed = mediaData.is_reviewed;
 
@@ -173,22 +173,23 @@ function getPopupPages(userCan, mediaData, allowDownload, downloadLink, mediaRep
         <PopupMain>
           <ul className="media-status-info">
             <li>
-              Media type: <span>{mediaType}</span>
+              {translateString('Media type')}: <span>{mediaType}</span>
             </li>
             <li>
-              State: <span>{mediaState}</span>
+              {translateString('State')}: <span>{mediaState}</span>
             </li>
             <li>
-              Review state: <span>{mediaIsReviewed ? 'Is reviewed' : 'Pending review'}</span>
+              {translateString('Review state')}:{' '}
+              <span>{mediaIsReviewed ? translateString('Is reviewed') : translateString('Pending review')}</span>
             </li>
             {mediaIsVideo ? (
               <li>
-                Encoding Status: <span>{mediaEncodingStatus}</span>
+                {translateString('Encoding status')}: <span>{mediaEncodingStatus}</span>
               </li>
             ) : null}
             {mediaReportedTimes ? (
               <li className="reports">
-                Reports: <span>{mediaReportedTimes}</span>
+                {translateString('Reports')}: <span>{mediaReportedTimes}</span>
               </li>
             ) : null}
           </ul>
@@ -246,7 +247,7 @@ export function MediaMoreOptionsIcon(props) {
     popupContentRef.current.tryToHide();
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Media Reported', 'reportedMedia');
+      PageActions.addNotification(translateString('Media reported'), 'reportedMedia');
       setReported(true);
       MediaPageStore.removeListener('reported_media', onCompleteMediaReport);
     }, 100);

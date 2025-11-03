@@ -12,6 +12,7 @@ import {
 } from '../components/_shared/';
 import { PlaylistCreationForm } from '../components/playlist-form/PlaylistCreationForm';
 import { PlaylistMediaList } from '../components/playlist-page/PlaylistMediaList';
+import { translateString } from '../utils/helpers/';
 
 import { Page } from './_Page';
 
@@ -89,7 +90,7 @@ function PlaylistThumb(props) {
             <span>
               <span>
                 <i className="material-icons">play_arrow</i>
-                <span className="play-all-label">PLAY ALL</span>
+                <span className="play-all-label">{translateString('PLAY ALL')}</span>
               </span>
             </span>
           </span>
@@ -110,7 +111,7 @@ function PlaylistTitle(props) {
 function PlaylistMeta(props) {
   return (
     <div className="playlist-meta">
-      <div className="playlist-videos-number">{props.totalItems} media</div>
+      <div className="playlist-videos-number">{props.totalItems} {translateString('media')}</div>
       {/*<div className="playlist-views">{ props.viewsCount } { 1 < formatViewsNumber( props.viewsCount ) ? 'views' : 'view' }</div>*/}
       {!props.dateLabel ? null : <div className="playlist-last-update">{props.dateLabel}</div>}
     </div>
@@ -121,7 +122,7 @@ function playlistOptionsList() {
   const items = {
     deleteMedia: {
       itemType: 'open-subpage',
-      text: 'Delete',
+      text: translateString('Delete'),
       icon: 'delete',
       buttonAttr: {
         className: 'change-page',
@@ -145,16 +146,18 @@ function playlistOptionsPopupPages(proceedPlaylistRemoval, cancelPlaylistRemoval
     proceedPlaylistRemovalPopup: (
       <PopupMain>
         <div className="popup-message">
-          <span className="popup-message-title">Playlist removal</span>
-          <span className="popup-message-main">You're willing to remove playlist permanently?</span>
+          <span className="popup-message-title">{translateString('Playlist removal')}</span>
+          <span className="popup-message-main">
+            {translateString("You're willing to remove playlist permanently?")}
+          </span>
         </div>
         <hr />
         <span className="popup-message-bottom">
           <button className="button-link cancel-playlist-removal" onClick={cancelPlaylistRemoval}>
-            CANCEL
+            {translateString('CANCEL')}
           </button>
           <button className="button-link proceed-playlist-removal" onClick={proceedPlaylistRemoval}>
-            PROCEED
+            {translateString('PROCEED')}
           </button>
         </span>
       </PopupMain>
@@ -212,7 +215,7 @@ function PlaylistEdit(props) {
   function playlistUpdateCompleted(new_playlist_data) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Playlist updated', 'playlistUpdateCompleted');
+      PageActions.addNotification(translateString('Playlist updated'), 'playlistUpdateCompleted');
       onClickExit();
     }, 100);
   }
@@ -220,7 +223,7 @@ function PlaylistEdit(props) {
   function playlistUpdateFailed() {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Playlist update failed', 'playlistUpdateFailed');
+      PageActions.addNotification(translateString('Playlist update failed'), 'playlistUpdateFailed');
       onClickExit();
     }, 100);
   }
@@ -228,7 +231,7 @@ function PlaylistEdit(props) {
   function playlistRemovalCompleted(playlistId) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Playlist removed. Redirecting...', 'playlistDelete');
+      PageActions.addNotification(translateString('Playlist removed. Redirecting...'), 'playlistDelete');
       setTimeout(function () {
         window.location.href = MemberContext._currentValue.pages.playlists;
       }, 2000);
@@ -238,7 +241,7 @@ function PlaylistEdit(props) {
   function playlistRemovalFailed(playlistId) {
     // FIXME: Without delay creates conflict [ Uncaught Error: Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch. ].
     setTimeout(function () {
-      PageActions.addNotification('Playlist removal failed', 'playlistDeleteFail');
+      PageActions.addNotification(translateString('Playlist removal failed'), 'playlistDeleteFail');
     }, 100);
   }
 
@@ -260,7 +263,7 @@ function PlaylistEdit(props) {
       <PopupTrigger contentRef={popupContentRef}>
         <CircleIconButton>
           <MaterialIcon type="edit" />
-          <span>EDIT</span>
+          <span>{translateString('EDIT')}</span>
         </CircleIconButton>
       </PopupTrigger>
 
@@ -270,7 +273,7 @@ function PlaylistEdit(props) {
             <span className="popup-fullscreen-overlay"></span>
             <div className="edit-playlist-form-wrap">
               <div className="edit-playlist-popup-title">
-                Edit playlist
+                {translateString('Edit playlist')}
                 <CircleIconButton type="button" onClick={onClickExit}>
                   <MaterialIcon type="close" />
                 </CircleIconButton>
@@ -380,10 +383,10 @@ export class PlaylistPage extends Page {
       savedPlaylist: PlaylistPageStore.get('saved-playlist'),
     }, () => {
       if( this.state.savedPlaylist ){
-        PageActions.addNotification('Added to playlists library', 'added-to-playlists-lib');
+        PageActions.addNotification(translateString('Added to playlists library'), 'added-to-playlists-lib');
       }
       else{
-        PageActions.addNotification('Removed from playlists library', 'removed-from-playlists-lib');
+        PageActions.addNotification(translateString('Removed from playlists library'), 'removed-from-playlists-lib');
       }
     });
   }*/

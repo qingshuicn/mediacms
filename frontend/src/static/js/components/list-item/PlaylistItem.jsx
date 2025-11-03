@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'timeago.js';
 import { useItem } from '../../utils/hooks/';
-import { PositiveIntegerOrZero } from '../../utils/helpers/';
+import { PositiveIntegerOrZero, translateString } from '../../utils/helpers/';
 import { PlaylistItemMetaDate } from './includes/items/';
 import { Item } from './Item';
 
@@ -17,7 +17,9 @@ export function PlaylistItem(props) {
         ? Date.parse(props.publish_date)
         : Date.parse(new Date(props.publish_date));
 
-    return <PlaylistItemMetaDate dateTime={publishDateTime} text={'Created ' + publishDate} />;
+    return (
+      <PlaylistItemMetaDate dateTime={publishDateTime} text={translateString('Created') + ' ' + publishDate} />
+    );
   }
 
   return (
@@ -44,7 +46,7 @@ export function PlaylistItem(props) {
             <div>
               <div>
                 <i className="material-icons">play_arrow</i>
-                <span>PLAY ALL</span>
+                <span>{translateString('PLAY ALL')}</span>
               </div>
             </div>
           </div>
@@ -54,7 +56,7 @@ export function PlaylistItem(props) {
           {titleComponent()}
           {metaComponents()}
           <a href={props.link} title="" className="view-full-playlist">
-            VIEW FULL PLAYLIST
+            {translateString('VIEW FULL PLAYLIST')}
           </a>
         </UnderThumbWrapper>
       </div>

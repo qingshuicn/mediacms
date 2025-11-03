@@ -48,11 +48,14 @@ function AddNewUser({ onUserAdded, setMessage }) {
           return res.json();
         }
         return res.json().then((data) => {
-          throw new Error(data.detail || 'Failed to create user.');
+          throw new Error(data.detail || translateString('Failed to create user.'));
         });
       })
       .then(() => {
-        sessionStorage.setItem('user-management-message', JSON.stringify({ type: 'success', text: 'User created successfully.' }));
+        sessionStorage.setItem(
+          'user-management-message',
+          JSON.stringify({ type: 'success', text: translateString('User created successfully.') })
+        );
         window.location.reload();
       })
       .catch((err) => {
@@ -65,24 +68,24 @@ function AddNewUser({ onUserAdded, setMessage }) {
   return (
     <div className="add-new-user-container">
       <PopupTrigger contentRef={popupRef}>
-        <button className="add-new-user-btn">Add New User</button>
+        <button className="add-new-user-btn">{translateString('Add new user')}</button>
       </PopupTrigger>
       <PopupContent contentRef={popupRef} hideCallback={clearForm}>
         <PopupMain>
           <form onSubmit={handleSubmit}>
             <div className="popup-message">
-              <span className="popup-message-title">Add New User</span>
+              <span className="popup-message-title">{translateString('Add new user')}</span>
               <div className="popup-message-main">
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder={translateString('Username')} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={translateString('Password')} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={translateString('Email')} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={translateString('Name')} required style={{ width: '100%', padding: '8px', boxSizing: 'border-box', marginBottom: '10px' }} />
               </div>
             </div>
             <hr />
             <span className="popup-message-bottom">
-              <button type="button" className="button-link cancel-profile-removal" onClick={() => popupRef.current.tryToHide()}>CANCEL</button>
-              <button type="submit" className="button-link proceed-profile-removal">SUBMIT</button>
+              <button type="button" className="button-link cancel-profile-removal" onClick={() => popupRef.current.tryToHide()}>{translateString('CANCEL')}</button>
+              <button type="submit" className="button-link proceed-profile-removal">{translateString('SUBMIT')}</button>
             </span>
           </form>
         </PopupMain>
@@ -273,29 +276,31 @@ function BulkActions(props) {
   return (
     <div className="manage-items-bulk-action">
       <select value={selectedBulkAction} onChange={onBulkActionSelect}>
-        <option value="">Bulk actions</option>
-        <option value="delete">Delete selected</option>
+        <option value="">{translateString('Bulk actions')}</option>
+        <option value="delete">{translateString('Delete selected')}</option>
       </select>
 
       {!selectedItemsSize || !selectedBulkAction ? null : (
         <PopupTrigger contentRef={popupContentRef}>
-          <button>Apply</button>
+          <button>{translateString('Apply')}</button>
         </PopupTrigger>
       )}
 
       <PopupContent contentRef={popupContentRef}>
         <PopupMain>
           <div className="popup-message">
-            <span className="popup-message-title">Bulk removal</span>
-            <span className="popup-message-main">You're willing to remove selected items permanently?</span>
+            <span className="popup-message-title">{translateString('Bulk removal')}</span>
+            <span className="popup-message-main">
+              {translateString("You're willing to remove selected items permanently?")}
+            </span>
           </div>
           <hr />
           <span className="popup-message-bottom">
             <button className="button-link cancel-profile-removal" onClick={onClickCancel}>
-              CANCEL
+              {translateString('CANCEL')}
             </button>
             <button className="button-link proceed-profile-removal" onClick={onClickProceed}>
-              PROCEED
+              {translateString('PROCEED')}
             </button>
           </span>
         </PopupMain>

@@ -49,7 +49,7 @@ export function UpNextLoaderView(nextItemData) {
     nextItemData.url +
     '"><svg class="radial-timer"><circle r="30" cx="32" cy="32"></circle><circle r="25" cx="28" cy="28"></circle></svg><span></span><i class="material-icons">skip_next</i></a>';
 
-  domElems.cancelNextButton.innerHTML = 'CANCEL';
+  domElems.cancelNextButton.innerHTML = translateString('CANCEL');
 
   domElems.cancelNextButton.addEventListener('click', hideView);
 

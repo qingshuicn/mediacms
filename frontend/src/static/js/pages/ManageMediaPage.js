@@ -7,6 +7,7 @@ import { MediaListWrapper } from '../components/MediaListWrapper';
 import { ManageMediaFilters } from '../components/management-table/ManageMediaFilters.jsx';
 import { ManageItemList } from '../components/management-table/ManageItemList/ManageItemList';
 import { Page } from './_Page';
+import { translateString } from '../utils/helpers/';
 
 function genReqUrl(url, filters, sort, page) {
   const ret = url + '?' + filters + ('' === filters ? '' : '&') + sort + ('' === sort ? '' : '&') + 'page=' + page;
@@ -21,7 +22,7 @@ export class ManageMediaPage extends Page {
       resultsCount: null,
       currentPage: 1,
       requestUrl: ApiUrlContext._currentValue.manage.media,
-      pageTitle: props.title,
+      pageTitle: translateString(props.title),
       hiddenFilters: true,
       filterArgs: '',
       sortingArgs: '',
@@ -60,7 +61,7 @@ export class ManageMediaPage extends Page {
   getCountFunc(resultsCount) {
     this.setState({
       resultsCount: resultsCount,
-      pageTitle: this.state.pageTitle,
+      pageTitle: translateString(this.props.title),
     });
   }
 
@@ -107,13 +108,16 @@ export class ManageMediaPage extends Page {
         requestUrl: ApiUrlContext._currentValue.manage.media,
       },
       function () {
-        PageActions.addNotification('The media deleted successfully.', 'mediaRemovalSucceed');
+        PageActions.addNotification(translateString('The media deleted successfully.'), 'mediaRemovalSucceed');
       }
     );
   }
 
   onItemsRemovalFail(multipleItems) {
-    PageActions.addNotification('The media removal failed. Please try again.', 'mediaRemovalFailed');
+    PageActions.addNotification(
+      translateString('The media removal failed. Please try again.'),
+      'mediaRemovalFailed'
+    );
   }
 
   pageContent() {

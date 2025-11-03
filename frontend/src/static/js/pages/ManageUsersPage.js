@@ -7,6 +7,7 @@ import { MediaListWrapper } from '../components/MediaListWrapper';
 import { ManageUsersFilters } from '../components/management-table/ManageUsersFilters.jsx';
 import { ManageItemList } from '../components/management-table/ManageItemList/ManageItemList';
 import { Page } from './_Page';
+import { translateString } from '../utils/helpers/';
 
 function genReqUrl(url, filters, sort, page) {
   const ret = url + '?' + filters + ('' === filters ? '' : '&') + sort + ('' === sort ? '' : '&') + 'page=' + page;
@@ -118,9 +119,9 @@ export class ManageUsersPage extends Page {
       },
       function () {
         if (multipleItems) {
-          PageActions.addNotification('The users deleted successfully.', 'usersRemovalSucceed');
+          PageActions.addNotification(translateString('The users deleted successfully.'), 'usersRemovalSucceed');
         } else {
-          PageActions.addNotification('The user deleted successfully.', 'userRemovalSucceed');
+          PageActions.addNotification(translateString('The user deleted successfully.'), 'userRemovalSucceed');
         }
       }
     );
@@ -128,9 +129,15 @@ export class ManageUsersPage extends Page {
 
   onItemsRemovalFail(multipleItems) {
     if (multipleItems) {
-      PageActions.addNotification('The users removal failed. Please try again.', 'usersRemovalFailed');
+      PageActions.addNotification(
+        translateString('The users removal failed. Please try again.'),
+        'usersRemovalFailed'
+      );
     } else {
-      PageActions.addNotification('The user removal failed. Please try again.', 'userRemovalFailed');
+      PageActions.addNotification(
+        translateString('The user removal failed. Please try again.'),
+        'userRemovalFailed'
+      );
     }
   }
 
@@ -165,5 +172,5 @@ ManageUsersPage.propTypes = {
 };
 
 ManageUsersPage.defaultProps = {
-  title: 'Manage users',
+  title: translateString('Manage users'),
 };

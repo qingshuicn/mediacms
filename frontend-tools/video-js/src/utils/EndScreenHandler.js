@@ -1,5 +1,6 @@
 import EndScreenOverlay from '../components/overlays/EndScreenOverlay';
 import AutoplayCountdownOverlay from '../components/overlays/AutoplayCountdownOverlay';
+import { translateString } from './translation';
 
 export class EndScreenHandler {
     constructor(player, options) {
@@ -144,7 +145,7 @@ export class EndScreenHandler {
     showAutoplayCountdown(relatedVideos, goToNextVideo) {
         // Get next video data for countdown display - find the next video in related videos
         let nextVideoData = {
-            title: 'Next Video',
+            title: translateString('Next Video'),
             author: '',
             duration: 0,
             thumbnail: '',
@@ -154,7 +155,7 @@ export class EndScreenHandler {
         if (relatedVideos.length > 0) {
             const nextVideo = relatedVideos[0];
             nextVideoData = {
-                title: nextVideo.title || 'Next Video',
+                title: nextVideo.title || translateString('Next Video'),
                 author: nextVideo.author || '',
                 duration: nextVideo.duration || 0,
                 thumbnail: nextVideo.thumbnail || '',

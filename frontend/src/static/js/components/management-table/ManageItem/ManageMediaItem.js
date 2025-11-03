@@ -1,10 +1,34 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { usePopup } from '../../../utils/hooks/usePopup';
-import { formatManagementTableDate } from '../../../utils/helpers/';
+import { formatManagementTableDate, translateString } from '../../../utils/helpers/';
 import { PageStore } from '../../../utils/stores/';
 import { PopupMain } from '../../_shared';
 import { MaterialIcon } from '../../_shared/material-icon/MaterialIcon';
+
+function translateOption(value) {
+  if ('string' !== typeof value) {
+    return value;
+  }
+
+  const trimmedValue = value.trim();
+
+  if (!trimmedValue) {
+    return trimmedValue;
+  }
+
+  const lower = trimmedValue.toLowerCase();
+
+  if ('pdf' === lower) {
+    return translateString('Pdf');
+  }
+
+  if ('n/a' === lower) {
+    return translateString('N/A');
+  }
+
+  return translateString(trimmedValue.charAt(0).toUpperCase() + trimmedValue.slice(1));
+}
 
 function ManageItemTitle(props) {
   if (void 0 !== props.title && void 0 !== props.url) {
@@ -23,7 +47,7 @@ function ManageItemTitle(props) {
     return props.url;
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 export function ManageItemDate(props) {
@@ -31,7 +55,7 @@ export function ManageItemDate(props) {
     return formatManagementTableDate(new Date(Date.parse(props.date)));
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 function ManageItemMediaAuthor(props) {
@@ -51,7 +75,7 @@ function ManageItemMediaAuthor(props) {
     return props.url;
   }
 
-  return <i className="non-available">N/A</i>;
+  return <i className="non-available">{translateString('N/A')}</i>;
 }
 
 function ManageItemMediaActions(props) {
@@ -128,24 +152,28 @@ function ManageItemMediaActions(props) {
   return (
     <div ref={props.containerRef} className="actions">
       <PopupTrigger contentRef={popupContentRef}>
-        <button title={'Delete' + (void 0 !== props.title ? ' "' + props.title + '"' : '')}>Delete</button>
+        <button title={translateString('Delete') + (void 0 !== props.title ? ' "' + props.title + '"' : '')}>
+          {translateString('Delete')}
+        </button>
       </PopupTrigger>
 
       <PopupContent contentRef={popupContentRef} showCallback={onPopupShow} hideCallback={onPopupHide}>
         <PopupMain>
           <div className="popup-message">
-            <span className="popup-message-title">Media removal</span>
+            <span className="popup-message-title">{translateString('Media removal')}</span>
             <span className="popup-message-main">
-              {"You're willing to remove media" + (void 0 !== props.title ? ' "' + props.title + '"' : '')}?
+              {translateString("You're willing to remove media") +
+                (void 0 !== props.title ? ' "' + props.title + '"' : '')}
+              ?
             </span>
           </div>
           <hr />
           <span className="popup-message-bottom">
             <button className="button-link cancel-profile-removal" onClick={onCancel}>
-              CANCEL
+              {translateString('CANCEL')}
             </button>
             <button className="button-link proceed-profile-removal" onClick={onProceed}>
-              PROCEED
+              {translateString('PROCEED')}
             </button>
           </span>
         </PopupMain>
@@ -197,15 +225,29 @@ export function ManageMediaItem(props) {
         <ManageItemMediaAuthor name={props.author_name} url={props.author_url} />
       </div>
       <div className="mi-type">
-        {void 0 === props.media_type ? <i className="non-available">N/A</i> : props.media_type}
+        {void 0 === props.media_type ? (
+          <i className="non-available">{translateString('N/A')}</i>
+        ) : (
+          translateOption(props.media_type)
+        )}
       </div>
       <div className="mi-encoding">
-        {void 0 === props.encoding_status ? <i className="non-available">N/A</i> : props.encoding_status}
+        {void 0 === props.encoding_status ? (
+          <i className="non-available">{translateString('N/A')}</i>
+        ) : (
+          translateOption(props.encoding_status)
+        )}
       </div>
-      <div className="mi-state">{void 0 === props.state ? <i className="non-available">N/A</i> : props.state}</div>
+      <div className="mi-state">
+        {void 0 === props.state ? (
+          <i className="non-available">{translateString('N/A')}</i>
+        ) : (
+          translateOption(props.state)
+        )}
+      </div>
       <div className="mi-reviewed">
         {void 0 === props.is_reviewed ? (
-          <i className="non-available">N/A</i>
+          <i className="non-available">{translateString('N/A')}</i>
         ) : props.is_reviewed ? (
           <MaterialIcon type="check_circle" />
         ) : (
@@ -214,7 +256,7 @@ export function ManageMediaItem(props) {
       </div>
       <div className="mi-featured">
         {void 0 === props.featured ? (
-          <i className="non-available">N/A</i>
+          <i className="non-available">{translateString('N/A')}</i>
         ) : props.featured ? (
           <MaterialIcon type="check_circle" />
         ) : (
@@ -223,12 +265,12 @@ export function ManageMediaItem(props) {
       </div>
       <div className="mi-reported">
         {void 0 === props.reported_times ? (
-          <i className="non-available">N/A</i>
+          <i className="non-available">{translateString('N/A')}</i>
         ) : 0 === props.reported_times ? (
           <span>-</span>
         ) : (
           <span className="reported-number">
-            {props.reported_times} {'time' + (1 < props.reported_times ? 's' : '')}
+            {props.reported_times} {translateString('reports')}
           </span>
         )}
       </div>

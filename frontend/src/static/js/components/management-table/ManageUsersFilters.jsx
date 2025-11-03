@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import { PageStore } from '../../utils/stores/';
 import { useUser } from '../../utils/hooks/';
 import { FilterOptions } from '../_shared';
+import { translateString } from '../../utils/helpers/';
 
 import './ManageItemList-filters.scss';
 
 const filters = {
   role: [
-    { id: 'all', title: 'All' },
-    { id: 'editor', title: 'Editor' },
-    { id: 'manager', title: 'Manager' },
+    { id: 'all', title: translateString('All') },
+    { id: 'editor', title: translateString('Editor') },
+    { id: 'manager', title: translateString('Manager') },
   ],
   approved: [
-    { id: 'all', title: 'All' },
-    { id: 'true', title: 'Yes' },
-    { id: 'false', title: 'No' },
+    { id: 'all', title: translateString('All') },
+    { id: 'true', title: translateString('Yes') },
+    { id: 'false', title: translateString('No') },
   ],
 };
 
@@ -69,14 +70,14 @@ export function ManageUsersFilters(props) {
     <div ref={containerRef} className={'mi-filters-row' + (isHidden ? ' hidden' : '')}>
       <div ref={innerContainerRef} className="mi-filters-row-inner">
         <div className="mi-filter">
-          <div className="mi-filter-title">ROLE</div>
+          <div className="mi-filter-title">{translateString('ROLE')}</div>
           <div className="mi-filter-options">
             <FilterOptions id={'role'} options={filters.role} selected={role} onSelect={onFilterSelect} />
           </div>
         </div>
         {userCan.usersNeedsToBeApproved ? (
           <div className="mi-filter">
-            <div className="mi-filter-title">APPROVED</div>
+            <div className="mi-filter-title">{translateString('APPROVED')}</div>
             <div className="mi-filter-options">
               <FilterOptions id={'approved'} options={filters.approved} selected={approved} onSelect={onFilterSelect} />
             </div>

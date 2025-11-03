@@ -1,5 +1,6 @@
 import videojs from 'video.js';
 import PlayerConfig from '../../config/playerConfig';
+import { translateString } from '../../utils/translation';
 // import './NextVideoButton.css';
 
 const Button = videojs.getComponent('Button');
@@ -25,7 +26,7 @@ class NextVideoButton extends Button {
         const button = videojs.dom.createEl('button', {
             className: 'vjs-next-video-button vjs-control vjs-button',
             type: 'button',
-            'aria-label': 'Next Video',
+            'aria-label': translateString('Next Video'),
             'aria-disabled': 'false',
         });
         button.style.width = '2.5em';
@@ -41,7 +42,7 @@ class NextVideoButton extends Button {
             className: 'vjs-control-text',
             'aria-live': 'polite',
         });
-        controlTextSpan.textContent = 'Next Video';
+        controlTextSpan.textContent = translateString('Next Video');
 
         // Create custom icon span with SVG
         const customIconSpan = videojs.dom.createEl('span');

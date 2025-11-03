@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { PageStore } from '../../utils/stores/';
+import { translateString } from '../../utils/helpers/';
 
 export function ReportForm(props) {
   const formActionsBottomRef = useRef(null);
@@ -43,22 +44,22 @@ export function ReportForm(props) {
         className="report-form"
         style={null !== maxFormContentHeight ? { maxHeight: maxFormContentHeight + 'px' } : null}
       >
-        <div className="form-title">Report media</div>
+        <div className="form-title">{translateString('Report media')}</div>
         <div className="form-field">
-          <span className="label">URL</span>
+          <span className="label">{translateString('URL')}</span>
           <input type="text" readOnly value={props.mediaUrl} />
         </div>
         <div className="form-field">
-          <span className="label">Description</span>
+          <span className="label">{translateString('Description')}</span>
           <textarea ref={reportMessageTextRef} required></textarea>
         </div>
-        <div className="form-field form-help-text">Reported media is reviewed</div>
+        <div className="form-field form-help-text">{translateString('Reported media is reviewed')}</div>
       </div>
       <div ref={formActionsBottomRef} className="form-actions-bottom">
         <button className="cancel" onClick={cancelReportForm}>
-          CANCEL
+          {translateString('CANCEL')}
         </button>
-        <button onClick={submitReportForm}>SUBMIT</button>
+        <button onClick={submitReportForm}>{translateString('SUBMIT')}</button>
       </div>
     </form>
   );

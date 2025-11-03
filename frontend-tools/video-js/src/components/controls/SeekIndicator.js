@@ -1,4 +1,5 @@
 import videojs from 'video.js';
+import { translateSecondsLabel, translateString } from '../../utils/translation';
 // import './SeekIndicator.css';
 
 const Component = videojs.getComponent('Component');
@@ -180,7 +181,7 @@ class SeekIndicator extends Component {
       </div>
     </div>
   `;
-            textEl.textContent = 'Play';
+            textEl.textContent = translateString('Play');
         } else if (direction === 'pause' || direction === 'pause-mobile') {
             iconEl.innerHTML = `
     <div style="display: flex; align-items: center; justify-content: center; animation: youtubeSeekPulse 0.3s ease-out;">
@@ -203,7 +204,7 @@ class SeekIndicator extends Component {
       </div>
     </div>
   `;
-            textEl.textContent = 'Pause';
+            textEl.textContent = translateString('Pause');
         }
 
         // Clear any text content in the text element
